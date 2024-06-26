@@ -41,10 +41,14 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.retrofit.v2110)
     implementation(libs.converter.gson)
+    implementation(libs.dagger.android.support)
     compileOnly(libs.dagger)
     annotationProcessor(libs.dagger.compiler)
     compileOnly(libs.projectlombok.lombok)
     annotationProcessor(libs.projectlombok.lombok)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor.v4120)
+
 
 
 

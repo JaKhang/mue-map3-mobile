@@ -1,5 +1,8 @@
 package com.mue.music.model.domain;
 
+import lombok.Data;
+
+@Data
 public class ApiBody<T> {
     private String message;
 
