@@ -14,7 +14,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i("test", "onCreate");
+        Log.i("Check", "Base Application create");
         applicationComponents = DaggerApplicationComponents.builder()
                 .contextModule(new ContextModule(this))
                 .apiModule(new ApiModule())

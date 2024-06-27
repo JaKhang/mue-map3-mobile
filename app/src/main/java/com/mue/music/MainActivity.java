@@ -15,8 +15,12 @@ import androidx.core.view.WindowInsetsCompat;
 import com.mue.music.config.ApplicationComponents;
 import com.mue.music.model.Artist;
 import com.mue.music.model.domain.ApiBody;
+import com.mue.music.model.domain.ApiError;
 import com.mue.music.model.domain.InfiniteList;
+import com.mue.music.model.domain.PageRequest;
+import com.mue.music.service.ApiHandler;
 import com.mue.music.service.ApiService;
+import com.mue.music.service.ArtistService;
 
 import java.util.Objects;
 
@@ -28,12 +32,12 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ApiService apiService;
+    private ArtistService artistService;
 
     @Inject
-    public void setApiService(ApiService apiService) {
-        Log.i("setApiService", "Inject: " + (apiService != null));
-        this.apiService = apiService;
+    public void setApiService(ArtistService artistService) {
+        Log.i("setApiService", "Inject: " + (artistService != null));
+        this.artistService = artistService;
     }
 
 
@@ -44,20 +48,18 @@ public class MainActivity extends AppCompatActivity {
         BaseApplication application = (BaseApplication) getApplication();
         application.getApplicationComponents().inject(this);
 
-        apiService.findArtists(0, 10, null, "").enqueue(new Callback<ApiBody<InfiniteList<Artist>>>() {
-            @Override
-            public void onResponse(Call<ApiBody<InfiniteList<Artist>>> call, @NonNull Response<ApiBody<InfiniteList<Artist>>> response) {
-                Log.i("tag", Objects.toString(response.body()));
-                Log.e("error", "");
+        artistService.findAll(PageRequest.of(0, 10),
+                new ApiHandler<InfiniteList<Artist>>() {
+                    @Override
+                    public void onSuccess(ApiBody<InfiniteList<Artist>> body) {
 
-            }
+                    }
 
-            @Override
-            public void onFailure(Call<ApiBody<InfiniteList<Artist>>> call, Throwable throwable) {
-                Log.e("error",  "error" +    throwable.getMessage());
+                    @Override
+                    public void onFailure(ApiError apiError) {
 
-            }
-        });
+                    }
+                });
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
