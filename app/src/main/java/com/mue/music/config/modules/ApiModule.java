@@ -1,14 +1,13 @@
-package com.mue.music.config;
+package com.mue.music.config.modules;
 
 import android.app.Application;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mue.music.config.AuthenticationInterceptor;
 import com.mue.music.service.ApiService;
+import com.mue.music.service.AuthService;
+import com.mue.music.service.AuthenticationManger;
 
 import javax.inject.Singleton;
 
@@ -31,6 +30,12 @@ public class ApiModule {
 
     @Provides
     @Singleton
+    AuthenticationInterceptor provideAuthenticationInterceptor(AuthenticationManger authService){
+        return new AuthenticationInterceptor(authService);
+    }
+
+    @Provides
+    @Singleton
     Gson provideGson() {
         GsonBuilder gsonBuildergsonBuilder = new GsonBuilder();;
         return gsonBuildergsonBuilder.create();
@@ -38,16 +43,12 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkhttpClient(Cache cache) {
+    OkHttpClient provideOkhttpClient(Cache cache, AuthenticationInterceptor authenticationInterceptor) {
         OkHttpClient.Builder client = new OkHttpClient.Builder();
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(@NonNull String s) {
-                Log.i("Http", s);
-            }
-        });
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         client.addInterceptor(interceptor);
+        client.addInterceptor(authenticationInterceptor);
         client.cache(cache);
         return client.build();
     }
@@ -57,7 +58,7 @@ public class ApiModule {
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl("http://192.168.61.149:8080")
+                .baseUrl("http://192.168.1.93:8080")
                 .client(okHttpClient)
                 .build();
     }
@@ -67,4 +68,5 @@ public class ApiModule {
     ApiService provideApiService(Retrofit retrofit){
         return retrofit.create(ApiService.class);
     }
+
 }

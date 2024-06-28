@@ -12,7 +12,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Sort {
 
-   private  List<Order> orders = new ArrayList<>();
+    public static final Sort UNSORTED = new Sort(List.of());
+    private  List<Order> orders = new ArrayList<>();
 
     @Getter
     @AllArgsConstructor

@@ -1,12 +1,16 @@
 package com.mue.music.service;
 
-import com.mue.music.model.AuthInfo;
+import com.mue.music.model.Principal;
 import com.mue.music.model.request.LoginRequest;
+import com.mue.music.model.request.RegisterRequest;
+
+import java.util.UUID;
 
 public interface AuthService {
-    boolean isAuthenticated();
 
-    String getToken();
+    void login(LoginRequest loginRequest, ApiHandler<Principal> handler);
 
-    void Login(LoginRequest loginRequest, ApiSuccessHandler<AuthInfo> successHandler);
+    void LoginWithLocalToken(ApiHandler<Principal> handler);
+
+    void register(RegisterRequest registerRequest, ApiHandler<UUID> handler);
 }

@@ -11,7 +11,5 @@ public class Artist {
     private String alias;
     private String thumbnail;
     private int numberOfTracks;
-    private int subscribes;
     private boolean liked;
-    private boolean subscribed;
 }

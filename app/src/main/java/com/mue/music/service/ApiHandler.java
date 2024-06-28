@@ -7,4 +7,8 @@ public interface ApiHandler<T> {
     void onSuccess(ApiBody<T> body);
 
     void onFailure(ApiError apiError);
+
+    default void onDone(){
+
+    }
 }
