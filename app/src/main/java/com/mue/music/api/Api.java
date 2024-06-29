@@ -1,4 +1,4 @@
-package com.mue.music.service;
+package com.mue.music.api;
 
 import com.mue.music.model.Album;
 import com.mue.music.model.AlbumDetails;
@@ -16,7 +16,6 @@ import com.mue.music.model.request.PlayListRequest;
 import com.mue.music.model.request.RegisterRequest;
 import com.mue.music.model.request.UserActionRequest;
 
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -29,7 +28,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 
-public interface ApiService {
+public interface Api {
 
     /*------------------
         Authentication

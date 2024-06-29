@@ -1,9 +1,9 @@
-package com.mue.music.config;
+package com.mue.music.di;
 
 import com.mue.music.MainActivity;
-import com.mue.music.config.modules.ApiModule;
-import com.mue.music.config.modules.ContextModule;
-import com.mue.music.config.modules.ServiceModule;
+import com.mue.music.di.modules.ApiModule;
+import com.mue.music.di.modules.ContextModule;
+import com.mue.music.di.modules.ServiceModule;
 
 import javax.inject.Singleton;
 

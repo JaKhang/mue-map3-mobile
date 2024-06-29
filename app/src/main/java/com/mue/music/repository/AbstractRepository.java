@@ -1,22 +1,21 @@
-package com.mue.music.service;
+package com.mue.music.repository;
 
 import com.google.gson.Gson;
-import com.mue.music.model.Artist;
+import com.mue.music.api.Api;
+import com.mue.music.api.ApiHandler;
 import com.mue.music.model.domain.ApiBody;
 import com.mue.music.model.domain.ApiError;
-import com.mue.music.model.domain.InfiniteList;
 
 import java.io.IOException;
-import java.util.logging.Handler;
 
 import lombok.RequiredArgsConstructor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Body;
+
 @RequiredArgsConstructor
-public abstract class AbstractService {
-    protected final ApiService apiService;
+public abstract class AbstractRepository {
+    protected final Api api;
 
     protected ApiError extractError(Response<?> response) {
         assert response.errorBody() != null;

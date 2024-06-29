@@ -1,7 +1,7 @@
 package com.mue.music.model;
 
-import com.mue.music.model.enums.AuthProvider;
 import com.mue.music.model.enums.Role;
+import com.mue.music.model.enums.AuthProvider;
 import com.mue.music.model.enums.UserStatus;
 
 import java.sql.Timestamp;

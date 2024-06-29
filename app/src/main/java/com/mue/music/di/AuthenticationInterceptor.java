@@ -1,11 +1,10 @@
-package com.mue.music.config;
+package com.mue.music.di;
 
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.mue.music.service.AuthService;
-import com.mue.music.service.AuthenticationManger;
+import com.mue.music.feature.auth.AuthenticationManger;
 
 import java.io.IOException;
 

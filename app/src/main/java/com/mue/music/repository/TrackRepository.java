@@ -1,5 +1,6 @@
-package com.mue.music.service;
+package com.mue.music.repository;
 
+import com.mue.music.api.ApiHandler;
 import com.mue.music.model.Track;
 import com.mue.music.model.TrackDetails;
 import com.mue.music.model.enums.Bitrate;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public interface TrackService {
+public interface TrackRepository {
     void getStreamingUrl(UUID id, ApiHandler<Map<Bitrate, String>> handler);
 
     void findTrackById(UUID id, ApiHandler<TrackDetails> handler);

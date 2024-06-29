@@ -1,4 +1,4 @@
-package com.mue.music.service;
+package com.mue.music.api;
 
 import com.mue.music.model.domain.ApiBody;
 import com.mue.music.model.domain.ApiError;

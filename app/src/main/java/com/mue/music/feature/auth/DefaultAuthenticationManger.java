@@ -1,11 +1,8 @@
-package com.mue.music.service.impl;
+package com.mue.music.feature.auth;
 
 import com.mue.music.model.Principal;
-import com.mue.music.service.AuthenticationManger;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 
 @Data

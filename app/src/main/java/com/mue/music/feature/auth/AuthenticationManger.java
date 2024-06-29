@@ -1,4 +1,4 @@
-package com.mue.music.service;
+package com.mue.music.feature.auth;
 
 import com.mue.music.model.Principal;
 

@@ -1,13 +1,12 @@
-package com.mue.music.config.modules;
+package com.mue.music.di.modules;
 
 import android.app.Application;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mue.music.config.AuthenticationInterceptor;
-import com.mue.music.service.ApiService;
-import com.mue.music.service.AuthService;
-import com.mue.music.service.AuthenticationManger;
+import com.mue.music.api.Api;
+import com.mue.music.di.AuthenticationInterceptor;
+import com.mue.music.feature.auth.AuthenticationManger;
 
 import javax.inject.Singleton;
 
@@ -65,8 +64,8 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    ApiService provideApiService(Retrofit retrofit){
-        return retrofit.create(ApiService.class);
+    Api provideApiService(Retrofit retrofit){
+        return retrofit.create(Api.class);
     }
 
 }

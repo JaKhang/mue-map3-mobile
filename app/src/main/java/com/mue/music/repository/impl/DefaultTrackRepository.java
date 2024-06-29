@@ -1,13 +1,13 @@
-package com.mue.music.service.impl;
+package com.mue.music.repository.impl;
 
+import com.mue.music.api.Api;
 import com.mue.music.model.Track;
 import com.mue.music.model.TrackDetails;
 import com.mue.music.model.domain.ApiBody;
 import com.mue.music.model.enums.Bitrate;
-import com.mue.music.service.AbstractService;
-import com.mue.music.service.ApiHandler;
-import com.mue.music.service.ApiService;
-import com.mue.music.service.TrackService;
+import com.mue.music.repository.AbstractRepository;
+import com.mue.music.api.ApiHandler;
+import com.mue.music.repository.TrackRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -15,14 +15,14 @@ import java.util.UUID;
 
 import retrofit2.Call;
 
-public class DefaultTrackService extends AbstractService implements TrackService {
-    public DefaultTrackService(ApiService apiService) {
-        super(apiService);
+public class DefaultTrackRepository extends AbstractRepository implements TrackRepository {
+    public DefaultTrackRepository(Api API) {
+        super(API);
     }
 
     @Override
     public void getStreamingUrl(UUID id, ApiHandler<Map<Bitrate, String>> handler) {
-        Call<ApiBody<Map<Bitrate, String>>> call = apiService.getStreamingUrl(id);
+        Call<ApiBody<Map<Bitrate, String>>> call = api.getStreamingUrl(id);
         enqueue(call, handler);
     }
 

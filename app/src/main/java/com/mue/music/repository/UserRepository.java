@@ -1,5 +1,6 @@
-package com.mue.music.service;
+package com.mue.music.repository;
 
+import com.mue.music.api.ApiHandler;
 import com.mue.music.model.Album;
 import com.mue.music.model.Artist;
 import com.mue.music.model.PlayList;
@@ -11,7 +12,7 @@ import com.mue.music.model.request.PlayListRequest;
 import java.util.List;
 import java.util.UUID;
 
-public interface UserService {
+public interface UserRepository {
     void likeTracks(List<UUID> ids, ApiHandler<Void> handler);
 
     void likeAlbums(List<UUID> ids, ApiHandler<Void> handler);

@@ -1,10 +1,10 @@
-package com.mue.music.config.modules;
+package com.mue.music.di.modules;
 
 
 import android.app.Application;
 
-import com.mue.music.service.AuthenticationManger;
-import com.mue.music.service.impl.DefaultAuthenticationManger;
+import com.mue.music.feature.auth.AuthenticationManger;
+import com.mue.music.feature.auth.DefaultAuthenticationManger;
 
 import javax.inject.Singleton;
 

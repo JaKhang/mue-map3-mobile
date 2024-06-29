@@ -1,15 +1,14 @@
-package com.mue.music.service;
+package com.mue.music.repository;
 
+import com.mue.music.api.ApiHandler;
 import com.mue.music.model.Album;
 import com.mue.music.model.AlbumDetails;
-import com.mue.music.model.Track;
 import com.mue.music.model.domain.InfiniteList;
 import com.mue.music.model.domain.PageRequest;
 
-import java.util.List;
 import java.util.UUID;
 
-public interface AlbumService {
+public interface AlbumRepository {
 
     void findAll(PageRequest pageRequest, ApiHandler<InfiniteList<Album>> handler);
 

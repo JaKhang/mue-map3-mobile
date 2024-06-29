@@ -9,13 +9,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.mue.music.repository.AuthenticationRepository;
+import com.mue.music.repository.UserRepository;
 import com.mue.music.model.Principal;
 import com.mue.music.model.domain.ApiBody;
 import com.mue.music.model.domain.ApiError;
 import com.mue.music.model.request.LoginRequest;
-import com.mue.music.service.ApiHandler;
-import com.mue.music.service.AuthService;
-import com.mue.music.service.UserService;
+import com.mue.music.api.ApiHandler;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,18 +24,18 @@ import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AuthService authService;
-    private UserService userService;
+    private AuthenticationRepository authenticationRepository;
+    private UserRepository userRepository;
 
     @Inject
-    public void setAuthService(AuthService authService) {
-        this.authService = authService;
+    public void setAuthService(AuthenticationRepository authenticationRepository) {
+        this.authenticationRepository = authenticationRepository;
     }
 
 
     @Inject
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    public void setUserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setEmail("ltndiep0803@gmail.com");
         loginRequest.setPassword("12345");
-        authService.login(loginRequest, new ApiHandler<Principal>() {
+        authenticationRepository.login(loginRequest, new ApiHandler<Principal>() {
             @Override
             public void onSuccess(ApiBody<Principal> body) {
                 Log.i("success", body.getData().toString());
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void testLike() {
-        userService.likeTracks(List.of(UUID.fromString("02acbaaf-815d-4aa3-9c2c-62fb72313f46")),new ApiHandler<Void>() {
+        userRepository.likeTracks(List.of(UUID.fromString("02acbaaf-815d-4aa3-9c2c-62fb72313f46")),new ApiHandler<Void>() {
             @Override
             public void onSuccess(ApiBody<Void> body) {
                 Log.i("Message", body.getMessage());
