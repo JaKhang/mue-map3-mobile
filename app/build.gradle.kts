@@ -48,6 +48,8 @@ dependencies {
     annotationProcessor(libs.projectlombok.lombok)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor.v4120)
+    implementation(libs.glide)               // Thêm thư viện glide để hiển thị ảnh từ Internet
+    annotationProcessor(libs.glide.compiler)
 
 
 

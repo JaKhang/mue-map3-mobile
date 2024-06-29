@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Font style for Bold -->
+    <style name="font_bold">
+        <item name="android:fontFamily">@font/helvetica_neue_bold</item>
+    </style>
+
+    <!-- Font style for Light -->
+    <style name="font_light">
+        <item name="android:fontFamily">@font/helvetica_neue_light</item>
+    </style>
+
+    <!-- Font style for Medium -->
+    <style name="font_medium">
+        <item name="android:fontFamily">@font/helvetica_neue_medium</item>
+    </style>
+
+    <style name="TransparentIndicatorStyle">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+</resources>
