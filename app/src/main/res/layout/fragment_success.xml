@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:contentDescription="Logo Mue"
+        android:src="@drawable/logo_mue_dev" />
+
+    <TextView
+        android:id="@+id/success_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/helvetica_neue_bold"
+        android:gravity="center"
+        android:text="Success!"
+        android:textColor="@android:color/white"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/login_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your request is successfully completed."
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:textSize="22sp"
+        android:fontFamily="@font/helvetica_neue_light"
+        android:layout_marginTop="100dp" />
+
+    <Button
+        android:id="@+id/btn_back_to_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="@color/spotify_green"
+        android:fontFamily="@font/helvetica_neue_medium"
+        android:paddingVertical="14dp"
+        android:textSize="16sp"
+        android:text="Back to Login page"
+        android:textColor="@android:color/white" />
+</LinearLayout>

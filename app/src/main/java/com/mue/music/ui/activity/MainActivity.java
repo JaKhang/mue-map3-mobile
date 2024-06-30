@@ -9,14 +9,14 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mue.music.R;
 import com.mue.music.ui.fragment.HomeFragment;
 import com.mue.music.ui.fragment.SearchFragment;
+import com.mue.music.util.RenderFragmentUtil;
 
+// Todo: Kiểm tra việc quay lại với nút back
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private ImageButton favUncheckBtn;
@@ -43,15 +43,17 @@ public class MainActivity extends AppCompatActivity {
         // Load HomeFragment ngay trong lần đầu tiên,
         // kiểm tra trạng thái trước đó từ param Bundle để xem fragment này đã load lần đầu tiên hay chưa
         if (savedInstanceState == null) {
-            loadFragment(new HomeFragment());
+            // Truyền activity hiện tại (Là con của 1 AppCompatActivity), instance của Fragment cần tạo
+            // và id container của fragment đó trong activity tương ứng
+            RenderFragmentUtil.loadFragment(this,new HomeFragment(), R.id.fragment_container);
         }
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.navigation_home) {
-                loadFragment(new HomeFragment());
+                RenderFragmentUtil.loadFragment(this, new HomeFragment(), R.id.fragment_container);
                 return true;
             } else if (item.getItemId() == R.id.navigation_search) {
-                loadFragment(new SearchFragment());
+                RenderFragmentUtil.loadFragment(this, new SearchFragment(), R.id.fragment_container);
                 return true;
             } else {
                 return false;
@@ -86,26 +88,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Set sự kiện hiển thị Music Player Fragment khi bấm vào Music Player Bar
         musicPlayerBar.setOnClickListener(v -> {
-//            openMusicPlayer();
+            openMusicPlayer();
         });
     }
 
-    private void loadFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_container);
-        if (currentFragment != null && currentFragment.getClass().equals(fragment.getClass())) {
-            // Hàm if kiểm tra xem fragment class muốn load có phải là fragment class hiện tại hay không,
-            // nếu có thì không load fragment class lên (Tối ưu việc load fragment)
-            return;
-        }
-
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
+    private void openMusicPlayer() {
+        Intent intent = new Intent(this, MusicPlayerActivity.class);
+        startActivity(intent);
     }
-
-//    private void openMusicPlayer() {
-//        Intent intent = new Intent(this, MusicPlayerActivity.class);
-//        startActivity(intent);
-//    }
 }
