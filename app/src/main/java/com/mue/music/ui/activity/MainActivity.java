@@ -148,14 +148,14 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
 //            openMusicPlayer();
         });
 
-        albumRepository.findById(UUID.fromString("55a82768-3d33-4e9a-a345-6d8df30ae07f"), new ApiHandler<AlbumDetails>() {
-            @Override
-            public void onSuccess(ApiBody<AlbumDetails> body) {
-                playerReducer.addTracks(body.getData().getTracks());
-                playerReducer.play();
-            }
-        });
-
+//        albumRepository.findById(UUID.fromString("55a82768-3d33-4e9a-a345-6d8df30ae07f"), new ApiHandler<AlbumDetails>() {
+//            @Override
+//            public void onSuccess(ApiBody<AlbumDetails> body) {
+//                playerReducer.addTracks(body.getData().getTracks());
+//                playerReducer.play();
+//            }
+//        });
+        onStopPlay();
         onChangeStatus(playerReducer.getModel().getStatus());
         onChangeTrack(playerReducer.getModel().getCurrent());
 
@@ -253,11 +253,13 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
     @Override
     public void onStartPlay() {
         musicPlayerBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onStopPlay() {
         musicPlayerBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
     }
 
 
