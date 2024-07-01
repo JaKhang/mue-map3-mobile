@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
 
         // Render ra các RecyclerView có image là hình vuông (Đã viết một util chung để render)
         List<RecyclerView> squareRecyclerViews = RenderRecyclerComponentUtil.renderRecyclerViews(view,
-                R.id.podcast_recycler_view, R.id.track_recycler_view, R.id.saved_track_recycler_view );
+                R.id.artist_recycler_view, R.id.track_recycler_view, R.id.saved_track_recycler_view );
         List<List<String>> squareImageList = new ArrayList<>();
         squareImageList.add(podcastUrlList);
         squareImageList.add(trackUrlList);
