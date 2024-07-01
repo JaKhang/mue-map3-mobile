@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
     <RelativeLayout
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:layout_alignParentStart="true">
 
         <ImageButton
             android:id="@+id/expand_button"
@@ -45,25 +46,28 @@
 
     </RelativeLayout>
 
+
     <ImageView
         android:id="@+id/music_album_cover"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_margin="50dp"
-        android:layout_weight="1"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_below="@id/top_bar"
+        android:gravity="center"
+        android:layout_marginTop="100dp"
+        android:layout_centerInParent="true"
         android:importantForAccessibility="no"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_home" />
 
-
     <RelativeLayout
         android:id="@+id/music_display"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/music_album_cover"
+        android:layout_marginTop="120dp">
 
         <LinearLayout
-            android:id="@+id/music_info"
+            android:id="@+id/btn_music_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -94,21 +98,39 @@
                 android:textSize="22sp" />
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/fav_checked"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="12dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/fav_checked"
-            android:src="@drawable/ic_like_checked"
-            android:visibility="gone"
-            tools:ignore="TouchTargetSizeCheck" />
+        <FrameLayout
+            android:id="@+id/fav_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/list_track"
+            android:layout_centerVertical="true">
+
+            <ImageButton
+                android:id="@+id/fav_checked"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+
+                android:layout_marginEnd="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/fav_checked"
+                android:src="@drawable/ic_like_checked"
+                android:visibility="gone"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/fav_unchecked"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/fav_unchecked"
+                android:src="@drawable/ic_like_unchecked"
+                tools:ignore="TouchTargetSizeCheck" />
+        </FrameLayout>
 
         <ImageButton
-            android:id="@+id/fav_unchecked"
+            android:id="@+id/list_track"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_alignParentEnd="true"
@@ -117,15 +139,43 @@
             android:layout_marginEnd="12dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/fav_unchecked"
-            android:src="@drawable/ic_like_unchecked"
+            android:src="@drawable/ic_bars"
             tools:ignore="TouchTargetSizeCheck" />
+
     </RelativeLayout>
 
-    <SeekBar
-        android:id="@+id/seekBar"
+    <RelativeLayout
+        android:id="@+id/control_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp" />
+        android:layout_marginVertical="20dp"
+        android:layout_below="@id/music_display">
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/startTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/seekBar"
+            android:text="0:12"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/seekBar"
+            android:text="4:26"
+            android:textColor="#FFFFFF"
+            android:layout_marginEnd="16dp"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -133,7 +183,27 @@
         android:layout_marginBottom="30dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:id="@+id/btn_shuffle_off"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_shuffle_off" />
+
+        <ImageButton
+            android:id="@+id/btn_shuffle_on"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_shuffle_on"
+            android:visibility="gone"/>
 
         <ImageButton
             android:id="@+id/btn_previous"
@@ -171,5 +241,34 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:importantForAccessibility="no"
             android:src="@drawable/ic_skip_next_bigsize" />
+
+        <ImageButton
+            android:id="@+id/btn_repeat_off"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_repeat_off" />
+
+        <ImageButton
+            android:id="@+id/btn_repeat_all"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_repeat_all"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/btn_repeat_one"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_repeat_one"
+            android:visibility="gone"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
