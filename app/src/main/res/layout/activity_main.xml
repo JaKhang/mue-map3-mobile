@@ -25,9 +25,9 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_above="@id/bottom_navigation_view"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/control_bar_round"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="#787575"
             android:orientation="horizontal"
             android:padding="8dp"
             app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
@@ -54,12 +54,12 @@
                     android:id="@+id/music_title"
                     style="@style/font_bold"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="Song Title"
                     android:textColor="#FFF"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/music_artist"
@@ -74,7 +74,7 @@
 
             <ImageButton
                 android:id="@+id/fav_checked"
-                android:layout_width="36dp"
+                android:layout_width="30dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="12dp"
@@ -86,8 +86,8 @@
 
             <ImageButton
                 android:id="@+id/fav_unchecked"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -97,7 +97,7 @@
 
             <ImageButton
                 android:id="@+id/play"
-                android:layout_width="36dp"
+                android:layout_width="30dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="4dp"
@@ -108,8 +108,8 @@
 
             <ImageButton
                 android:id="@+id/pause"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="4dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -124,10 +124,12 @@
             android:id="@+id/music_progress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="-6dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/music_player_bar" />
+            android:layout_height="2dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/music_player_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!-- Bottom Navigation View -->
         <com.google.android.material.bottomnavigation.BottomNavigationView

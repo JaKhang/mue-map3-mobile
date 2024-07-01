@@ -25,6 +25,7 @@ import androidx.palette.graphics.Palette;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
 //            openMusicPlayer();
         });
 
-        albumRepository.findById(UUID.fromString("55477256-961f-447a-9611-169942ff92d9"), new ApiHandler<AlbumDetails>() {
+        albumRepository.findById(UUID.fromString("55a82768-3d33-4e9a-a345-6d8df30ae07f"), new ApiHandler<AlbumDetails>() {
             @Override
             public void onSuccess(ApiBody<AlbumDetails> body) {
                 playerReducer.addTracks(body.getData().getTracks());
@@ -156,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
         });
 
         onChangeStatus(playerReducer.getModel().getStatus());
+        onChangeTrack(playerReducer.getModel().getCurrent());
 
     }
 
@@ -171,6 +173,8 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
     --------------------*/
     @Override
     public void onChangeTrack(int index) {
+        if (index == -1)
+            return;;
         Track track = playerReducer.getModel().getCurrentTrack();
         trackTile.setText(track.getName());
         artistName.setText(track.getArtistsName());
@@ -179,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
                 .load(track.getThumbnail())
                 .placeholder(R.drawable.placeholder) // Optional: placeholder image
                 .error(R.drawable.placeholder)
+                .apply(new RequestOptions().transform(new RoundedCorners(15)).error(R.drawable.placeholder).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE))
                 .listener(new RequestListener<Bitmap>() {
 
                     @Override
@@ -219,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
     private int makeColorDarker(int color, float factor) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
-        hsv[2] *= 0.6f; // Reduce brightness
+        hsv[2] *= 0.35f; // Reduce brightness
         hsv[1] *= 0.5f;
         return Color.HSVToColor(hsv);
     }

@@ -15,7 +15,7 @@ import lombok.Getter;
 
 @Getter
 public class PlayerModel {
-    private int current;
+    private int current = -1;
     private Mode mode = Mode.NONE;
     private boolean isShuffle = true;
     private final List<Track> tracks = new ArrayList<>();
@@ -48,15 +48,18 @@ public class PlayerModel {
 
     }
 
-    void setCurrent(int current){
+    void setCurrent(int current) {
         this.current = current;
     }
 
     public Track getCurrentTrack() {
-        return tracks.get(current);
+        if (current == -1)
+            return null;
+        return
+                tracks.get(current);
     }
 
-    public int getNextIndex(){
+    public int getNextIndex() {
         if (isShuffle)
             return randomTrack();
         if (current == tracks.size() - 1)
@@ -93,7 +96,7 @@ public class PlayerModel {
         return randStart;
     }
 
-    public boolean isEnd(){
+    public boolean isEnd() {
         if (isShuffle)
             return played.size() == tracks.size();
         return current == tracks.size();
