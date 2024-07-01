@@ -3,16 +3,19 @@ package com.mue.music.ui.adapter.search;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.mue.music.R;
 import com.mue.music.model_test_ui.Track;
 
 import java.util.List;
 
+// TODO: Track này là track test UI
 public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHolder> {
     private List<Track> tracks;
 
@@ -47,16 +50,27 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
     public static class TrackViewHolder extends RecyclerView.ViewHolder {
         private TextView nameTextView;
         private TextView artistTextView;
+        private ImageView imageView;
 
         public TrackViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.name);
             artistTextView = itemView.findViewById(R.id.artist);
+            imageView = itemView.findViewById(R.id.image);
         }
 
         public void bindData(Track track) {
             nameTextView.setText(track.getName());
             artistTextView.setText(track.getArtist());
+            Glide.with(imageView.getContext())
+                    .load(track.getImageUrl())
+                    .into(imageView);
+
+            setAllEvent();
+        }
+
+        private void setAllEvent() {
+
         }
     }
 }

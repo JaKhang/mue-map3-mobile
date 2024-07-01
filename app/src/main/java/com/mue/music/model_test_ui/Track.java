@@ -5,6 +5,7 @@ import com.mue.music.model_test_ui.abs.BaseApiModel;
 public class Track extends BaseApiModel {
     private String artist;
     private long categoryId;
+    private String imageUrl;
 
     public Track() {
     }
@@ -13,10 +14,11 @@ public class Track extends BaseApiModel {
         super(id, name);
     }
 
-    public Track(String id, long categoryId, String name, String artist) {
+    public Track(String id, long categoryId, String name, String artist, String imageUrl) {
         super(id, name);
         this.artist = artist;
         this.categoryId = categoryId;
+        this.imageUrl = imageUrl;
     }
 
     public String getArtist() {
@@ -33,5 +35,13 @@ public class Track extends BaseApiModel {
 
     public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

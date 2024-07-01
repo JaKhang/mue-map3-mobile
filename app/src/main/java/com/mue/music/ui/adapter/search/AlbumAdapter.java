@@ -13,6 +13,7 @@ import com.mue.music.model_test_ui.Album;
 
 import java.util.List;
 
+// TODO: Album này là album test UI
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder> {
     private List<Album> albums;
 

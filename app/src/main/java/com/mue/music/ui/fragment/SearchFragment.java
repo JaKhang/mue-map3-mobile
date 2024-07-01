@@ -16,12 +16,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mue.music.BaseApplication;
 import com.mue.music.R;
 import com.mue.music.model.Genre;
 import com.mue.music.model_test_ui.Album;
 import com.mue.music.model_test_ui.Artist;
-import com.mue.music.model_test_ui.Category;
 import com.mue.music.model_test_ui.Track;
 import com.mue.music.ui.adapter.search.AlbumAdapter;
 import com.mue.music.ui.adapter.search.ArtistAdapter;
@@ -142,8 +140,8 @@ public class SearchFragment extends Fragment {
 //        genres.add(new Category(5, "Artist", R.color.blue));
 
         trackList = new ArrayList<>();
-        trackList.add(new Track("1", 1, "Track 1", "Artist 1"));
-        trackList.add(new Track("2", 1, "Track 2", "Artist 2"));
+        trackList.add(new Track("1", 1, "Track 1", "Artist 1", "https://i.scdn.co/image/ab67616d0000b2738cb0cde7228e1cf1b728c635"));
+        trackList.add(new Track("2", 1, "Track 2", "Artist 2", "https://i.scdn.co/image/ab67616d0000b2738cb0cde7228e1cf1b728c635"));
         // Add more tracks as needed
     }
 

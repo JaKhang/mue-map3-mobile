@@ -33,8 +33,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.CategoryView
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Genre genre = genres.get(position);
-        holder.categoryName.setText(genre.getName());
-        holder.cardView.setCardBackgroundColor(Color.parseColor(genre.getColor()));
+        holder.bindData(genre);
     }
 
     @Override
@@ -50,6 +49,11 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.CategoryView
             super(itemView);
             categoryName = itemView.findViewById(R.id.category_name);
             cardView = itemView.findViewById(R.id.card_view);
+        }
+
+        public void bindData(Genre genre) {
+            categoryName.setText(genre.getName());
+            cardView.setCardBackgroundColor(Color.parseColor(genre.getColor()));
         }
     }
 }

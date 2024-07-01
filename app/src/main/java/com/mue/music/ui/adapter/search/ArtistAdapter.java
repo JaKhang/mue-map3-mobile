@@ -14,6 +14,7 @@ import com.mue.music.model_test_ui.Artist;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Artist này là artist test UI
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistViewHolder> {
     private List<Artist> artists = new ArrayList<>();
 
@@ -55,6 +56,12 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
 
         public void bindData(Artist artist) {
             name.setText(artist.getName());
+
+            setAllEvent();
+        }
+
+        private void setAllEvent() {
+
         }
     }
 }
