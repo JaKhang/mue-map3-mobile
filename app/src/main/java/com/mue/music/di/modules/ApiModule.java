@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mue.music.api.Api;
 import com.mue.music.di.AuthenticationInterceptor;
-import com.mue.music.feature.auth.AuthenticationManger;
+import com.mue.music.feature.auth.AuthenticationContext;
 
 import javax.inject.Singleton;
 
@@ -29,7 +29,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    AuthenticationInterceptor provideAuthenticationInterceptor(AuthenticationManger authService){
+    AuthenticationInterceptor provideAuthenticationInterceptor(AuthenticationContext authService){
         return new AuthenticationInterceptor(authService);
     }
 
@@ -57,7 +57,7 @@ public class ApiModule {
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl("http://192.168.1.93:8080")
+                .baseUrl("http://192.168.1.42:8080")
                 .client(okHttpClient)
                 .build();
     }

@@ -4,7 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.mue.music.feature.auth.AuthenticationManger;
+import com.mue.music.feature.auth.AuthenticationContext;
 
 import java.io.IOException;
 
@@ -16,16 +16,16 @@ import okhttp3.Response;
 @RequiredArgsConstructor
 public class AuthenticationInterceptor implements Interceptor {
 
-    private final AuthenticationManger authenticationManger;
+    private final AuthenticationContext authenticationContext;
 
     @NonNull
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
         Request original = chain.request();
-        Log.i("info", authenticationManger.toString());
+        Log.i("info", authenticationContext.toString());
         Request.Builder requestBuilder = original.newBuilder();
-        if (authenticationManger.getToken() != null)
-            requestBuilder.header("Authorization", "Bearer " + authenticationManger.getToken()); // Adding Authorization header
+        if (authenticationContext.getToken() != null)
+            requestBuilder.header("Authorization", "Bearer " + authenticationContext.getToken()); // Adding Authorization header
         Request request = requestBuilder.build();
         return chain.proceed(request);
     }

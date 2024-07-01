@@ -13,7 +13,6 @@ import lombok.Data;
 public class ArtistDetails {
     private UUID id;
     private String thumbnail;
-    private String alias;
     private String avatarUrl;
     private String coverUrl;
     private String name;

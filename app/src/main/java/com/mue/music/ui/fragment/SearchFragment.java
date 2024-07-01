@@ -16,14 +16,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mue.music.BaseApplication;
 import com.mue.music.R;
+import com.mue.music.model.Genre;
 import com.mue.music.model_test_ui.Album;
 import com.mue.music.model_test_ui.Artist;
 import com.mue.music.model_test_ui.Category;
 import com.mue.music.model_test_ui.Track;
 import com.mue.music.ui.adapter.search.AlbumAdapter;
 import com.mue.music.ui.adapter.search.ArtistAdapter;
-import com.mue.music.ui.adapter.search.CategoryAdapter;
+import com.mue.music.ui.adapter.search.GenreAdapter;
 import com.mue.music.ui.adapter.search.TrackAdapter;
 import com.mue.music.util.SearchFilterUtil;
 
@@ -33,18 +35,19 @@ import java.util.List;
 public class SearchFragment extends Fragment {
     private RecyclerView recyclerView;
     private EditText searchBar;
-    private CategoryAdapter categoryAdapter;
+    private GenreAdapter genreAdapter;
     private TrackAdapter trackAdapter;
     private AlbumAdapter albumAdapter;
     private ArtistAdapter artistAdapter;
-    private List<Category> categoryList;
+    private final List<Genre> genres;
     private List<Track> trackList = new ArrayList<>();
     private List<Album> albumList = new ArrayList<>();
     private List<Artist> artistList = new ArrayList<>();
     private LinearLayout underSearchNav;
     private int selectedNavId = -1;
 
-    public SearchFragment() {
+    public SearchFragment(List<Genre> genres) {
+        this.genres = genres;
     }
 
     @Override
@@ -67,7 +70,7 @@ public class SearchFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         searchBar = view.findViewById(R.id.search_bar);
 
-        categoryAdapter = new CategoryAdapter(categoryList);
+        genreAdapter = new GenreAdapter(genres);
         trackAdapter = new TrackAdapter(trackList);
         albumAdapter = new AlbumAdapter(albumList);
         artistAdapter = new ArtistAdapter(artistList);
@@ -84,7 +87,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
-                    addAdapter(categoryAdapter);
+                    addAdapter(genreAdapter);
                     selectedNavId = -1;
                     underSearchNav.setVisibility(View.GONE);
                 } else {
@@ -132,12 +135,11 @@ public class SearchFragment extends Fragment {
     }
 
     private void initializeData() {
-        categoryList = new ArrayList<>();
-        categoryList.add(new Category(1, "Tracks", R.color.green));
-        categoryList.add(new Category(2, "Podcasts", R.color.purple));
-        categoryList.add(new Category(3, "Charts", R.color.pink));
-        categoryList.add(new Category(4, "You Saved", R.color.red));
-        categoryList.add(new Category(5, "Artist", R.color.blue));
+//        genres.add(new Category(1, "Tracks", R.color.green));
+//        genres.add(new Category(2, "Podcasts", R.color.purple));
+//        genres.add(new Category(3, "Charts", R.color.pink));
+//        genres.add(new Category(4, "You Saved", R.color.red));
+//        genres.add(new Category(5, "Artist", R.color.blue));
 
         trackList = new ArrayList<>();
         trackList.add(new Track("1", 1, "Track 1", "Artist 1"));
@@ -147,11 +149,11 @@ public class SearchFragment extends Fragment {
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.setAdapter(categoryAdapter);
+        recyclerView.setAdapter(genreAdapter);
     }
 
     private void addAdapter(RecyclerView.Adapter adapter) {
-        if (adapter instanceof CategoryAdapter) {
+        if (adapter instanceof GenreAdapter) {
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

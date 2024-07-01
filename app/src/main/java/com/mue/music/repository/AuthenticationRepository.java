@@ -11,7 +11,7 @@ public interface AuthenticationRepository {
 
     void login(LoginRequest loginRequest, ApiHandler<Principal> handler);
 
-    void LoginWithLocalToken(ApiHandler<Principal> handler);
+    void loginWithLocalToken(ApiHandler<Principal> handler);
 
     void register(RegisterRequest registerRequest, ApiHandler<UUID> handler);
 }

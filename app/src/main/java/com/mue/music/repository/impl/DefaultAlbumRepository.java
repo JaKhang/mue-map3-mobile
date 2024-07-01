@@ -27,7 +27,7 @@ public class DefaultAlbumRepository extends AbstractRepository implements AlbumR
 
     @Override
     public void findById(UUID id, ApiHandler<AlbumDetails> handler) {
-        Call<ApiBody<AlbumDetails>> call = api.findAlbumById(id);
+        Call<ApiBody<AlbumDetails>> call = api.findAlbumById(id.toString());
         enqueue(call, handler);
     }
 

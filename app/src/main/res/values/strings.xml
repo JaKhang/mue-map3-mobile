@@ -19,4 +19,5 @@
     <string name="artist">Artist</string>
     <string name="album">Album</string>
     <string name="you_liked">You Liked</string>
+    <string name="logo_icon">Logo icon</string>
 </resources>

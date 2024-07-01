@@ -9,5 +9,4 @@ import lombok.Data;
 public class SimpleObject {
     private UUID id;
     private String name;
-    private String alias;
 }

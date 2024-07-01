@@ -13,7 +13,6 @@ import lombok.Data;
 public class AlbumDetails {
     private UUID id;
     private String alias;
-    private String name;
     private String description;
     private String shortDescription;
     private String thumbnail;
@@ -26,5 +25,5 @@ public class AlbumDetails {
     private int duration;
     private boolean liked;
     private List<Artist> artists;
-    private List<Artist> tracks;
+    private List<Track> tracks;
 }

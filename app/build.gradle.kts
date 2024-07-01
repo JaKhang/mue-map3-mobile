@@ -36,21 +36,24 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.media3.exoplayer)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation(libs.retrofit.v2110)
-    implementation(libs.converter.gson)
-    implementation(libs.dagger.android.support)
-    compileOnly(libs.dagger)
+    implementation(libs.retrofit.v2110)                 // Call api library
+    implementation(libs.okhttp)                         // HTTP request library
+    implementation(libs.converter.gson)                 // Json converter library
+    implementation(libs.logging.interceptor.v4120)      // Log api request
+    compileOnly(libs.dagger)                            // Dependency Injection
     annotationProcessor(libs.dagger.compiler)
-    compileOnly(libs.projectlombok.lombok)
+    implementation(libs.dagger.android.support)
+    compileOnly(libs.projectlombok.lombok)              // Auto getter setter constructor...
     annotationProcessor(libs.projectlombok.lombok)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor.v4120)
-    implementation(libs.glide)               // Thêm thư viện glide để hiển thị ảnh từ Internet
+    implementation(libs.glide)                          // Thêm thư viện glide để hiển thị ảnh từ Internet
     annotationProcessor(libs.glide.compiler)
-
+    implementation(libs.media3.exoplayer.hls) //  HLS player
+    implementation(libs.media3.exoplayer)
+    implementation(libs.palette)
 
 
 

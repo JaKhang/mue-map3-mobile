@@ -5,6 +5,7 @@ import com.mue.music.model.AlbumDetails;
 import com.mue.music.model.Artist;
 import com.mue.music.model.ArtistDetails;
 import com.mue.music.model.AuthInfo;
+import com.mue.music.model.Genre;
 import com.mue.music.model.PlayList;
 import com.mue.music.model.Principal;
 import com.mue.music.model.Track;
@@ -16,6 +17,7 @@ import com.mue.music.model.request.PlayListRequest;
 import com.mue.music.model.request.RegisterRequest;
 import com.mue.music.model.request.UserActionRequest;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -25,7 +27,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface Api {
@@ -55,7 +57,7 @@ public interface Api {
 
     @GET("/api/v1/artists/{id}")
     Call<ApiBody<ArtistDetails>> findAristById(
-            @Part UUID id
+            @Path("id") UUID id
     );
 
 
@@ -71,7 +73,7 @@ public interface Api {
 
     @GET("/api/v1/albums/{id}")
     Call<ApiBody<AlbumDetails>> findAlbumById(
-            @Part UUID id
+            @Path("id") String id
     );
 
     @GET("/api/v1/albums/search?")
@@ -143,10 +145,10 @@ public interface Api {
     --------------------*/
 
     @POST("/api/v1/playlists/{id}/tracks")
-    Call<ApiBody<Void>> addTrackToPlayList(@Part("id") UUID playlistId, @Body UserActionRequest userActionRequest);
+    Call<ApiBody<Void>> addTrackToPlayList(@Path("id") UUID playlistId, @Body UserActionRequest userActionRequest);
 
     @DELETE("/api/v1/playlists/{id}/tracks")
-    Call<ApiBody<Void>> removeFromToPlayList(@Part UUID id, @Body UserActionRequest userActionRequest);
+    Call<ApiBody<Void>> removeFromToPlayList(@Path("id") UUID id, @Body UserActionRequest userActionRequest);
 
     @POST("/api/v1/playlists")
     Call<ApiBody<UUID>> createPlayList(@Body PlayListRequest playListRequest);
@@ -162,7 +164,7 @@ public interface Api {
 
 
     @GET("/api/v1/artists/{id}/albums?")
-    Call<ApiBody<InfiniteList<Album>>> findAlbumByArtistId(@Part("id") UUID artistId,
+    Call<ApiBody<InfiniteList<Album>>> findAlbumByArtistId(@Path("id") UUID artistId,
                                                            @Query("page") Integer page,
                                                            @Query("size") Integer size,
                                                            @Query("sort") String sort,
@@ -173,5 +175,8 @@ public interface Api {
             Track
     --------------------*/
     @GET("/api/v1/tracks/{id}/streaming")
-    Call<ApiBody<Map<Bitrate, String>>> getStreamingUrl(UUID id);
+    Call<ApiBody<Map<Bitrate, String>>> getStreamingUrl(@Path("id") UUID id);
+
+    @GET("/api/v1/genres")
+    Call<ApiBody<List<Genre>>> findGenres();
 }

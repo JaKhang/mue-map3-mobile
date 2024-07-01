@@ -3,18 +3,22 @@ package com.mue.music.di.modules;
 import android.app.Application;
 
 import com.mue.music.api.Api;
+import com.mue.music.feature.player.DefaultPlayer;
+import com.mue.music.feature.player.PlayerReducer;
 import com.mue.music.repository.AlbumRepository;
 import com.mue.music.repository.ArtistRepository;
 import com.mue.music.repository.AuthenticationRepository;
-import com.mue.music.feature.auth.AuthenticationManger;
+import com.mue.music.feature.auth.AuthenticationContext;
 import com.mue.music.repository.GenreRepository;
 import com.mue.music.repository.PlayListRepository;
+import com.mue.music.repository.TrackRepository;
 import com.mue.music.repository.UserRepository;
 import com.mue.music.repository.impl.DefaultAlbumRepository;
 import com.mue.music.repository.impl.DefaultArtistRepository;
 import com.mue.music.repository.impl.DefaultAuthRepository;
 import com.mue.music.repository.impl.DefaultGenreRepository;
 import com.mue.music.repository.impl.DefaultPlayListRepository;
+import com.mue.music.repository.impl.DefaultTrackRepository;
 import com.mue.music.repository.impl.DefaultUserRepository;
 
 import javax.inject.Singleton;
@@ -53,8 +57,8 @@ public class ServiceModule {
 
     @Singleton
     @Provides
-    public AuthenticationRepository provideAuthService(Api API, Application application, AuthenticationManger authenticationManger){
-        return new DefaultAuthRepository(API,application, authenticationManger);
+    public AuthenticationRepository provideAuthService(Api API, Application application, AuthenticationContext authenticationContext){
+        return new DefaultAuthRepository(API,application, authenticationContext);
     }
 
     @Singleton
@@ -63,7 +67,16 @@ public class ServiceModule {
         return new DefaultUserRepository(API);
     }
 
+    @Singleton
+    @Provides
+    public TrackRepository provideTrackRepository (Api API){
+        return new DefaultTrackRepository(API);
+    }
 
-
+    @Singleton
+    @Provides
+    public PlayerReducer providePlaylistManger(){
+        return new DefaultPlayer();
+    }
 
 }

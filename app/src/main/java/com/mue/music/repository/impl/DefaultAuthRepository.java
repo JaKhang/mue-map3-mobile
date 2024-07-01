@@ -16,22 +16,22 @@ import com.mue.music.model.request.LoginRequest;
 import com.mue.music.model.request.RegisterRequest;
 import com.mue.music.repository.AbstractRepository;
 import com.mue.music.api.ApiHandler;
-import com.mue.music.feature.auth.AuthenticationManger;
+import com.mue.music.feature.auth.AuthenticationContext;
 
 import java.util.UUID;
 
 import retrofit2.Call;
 
 public class DefaultAuthRepository extends AbstractRepository implements AuthenticationRepository {
-    private final AuthenticationManger authenticationManger;
+    private final AuthenticationContext authenticationContext;
     private final Application application;
     private final SharedPreferences sharedPreferences;
 
-    public DefaultAuthRepository(Api API, Application application, AuthenticationManger authenticationManger) {
+    public DefaultAuthRepository(Api API, Application application, AuthenticationContext authenticationContext) {
         super(API);
         this.application = application;
         this.sharedPreferences = application.getSharedPreferences(PreferenceName.LOCAL, Context.MODE_PRIVATE);
-        this.authenticationManger = authenticationManger;
+        this.authenticationContext = authenticationContext;
 
     }
 
@@ -45,7 +45,7 @@ public class DefaultAuthRepository extends AbstractRepository implements Authent
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(Key.ACCESS_TOKEN, body.getData().getToken());
                 editor.apply();
-                authenticationManger.setToken(body.getData().getToken());
+                authenticationContext.setToken(body.getData().getToken());
                 loadPrincipal(handler);
             }
 
@@ -63,23 +63,25 @@ public class DefaultAuthRepository extends AbstractRepository implements Authent
             @Override
             public void onSuccess(ApiBody<Principal> body) {
                 handler.onSuccess(body);
-                handler.onDone();
-                authenticationManger.setPrincipal(body.getData());
+                authenticationContext.setPrincipal(body.getData());
             }
 
             @Override
             public void onFailure(ApiError apiError) {
                 handler.onFailure(apiError);
-                handler.onDone();
-                authenticationManger.setToken(null);
+                authenticationContext.setToken(null);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove(Key.ACCESS_TOKEN);
+                editor.apply();
             }
         });
     }
 
     @Override
-    public void LoginWithLocalToken(ApiHandler<Principal> handler) {
+    public void loginWithLocalToken(ApiHandler<Principal> handler) {
         String token = sharedPreferences.getString(Key.ACCESS_TOKEN, null);
-        authenticationManger.setToken(token);
+        if(token == null) handler.onDone();
+        authenticationContext.setToken(token);
         loadPrincipal(handler);
     }
 

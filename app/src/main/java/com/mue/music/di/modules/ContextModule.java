@@ -3,8 +3,8 @@ package com.mue.music.di.modules;
 
 import android.app.Application;
 
-import com.mue.music.feature.auth.AuthenticationManger;
-import com.mue.music.feature.auth.DefaultAuthenticationManger;
+import com.mue.music.feature.auth.AuthenticationContext;
+import com.mue.music.feature.auth.DefaultAuthenticationContext;
 
 import javax.inject.Singleton;
 
@@ -28,7 +28,7 @@ public class ContextModule {
 
     @Provides
     @Singleton
-    AuthenticationManger provideAuthenticationManger() {
-        return new DefaultAuthenticationManger();
+    AuthenticationContext provideAuthenticationManger() {
+        return new DefaultAuthenticationContext();
     }
 }

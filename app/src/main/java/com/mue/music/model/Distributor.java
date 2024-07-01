@@ -9,7 +9,6 @@ import lombok.Data;
 public class Distributor {
     private UUID id;
     private String name;
-    private String alias;
     private String thumbnail;
     private Image image;
 }

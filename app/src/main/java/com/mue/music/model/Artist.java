@@ -8,7 +8,6 @@ import lombok.Data;
 public class Artist {
     private UUID id;
     private String name;
-    private String alias;
     private String thumbnail;
     private int numberOfTracks;
     private boolean liked;

@@ -6,7 +6,7 @@ import lombok.Data;
 
 
 @Data
-public class DefaultAuthenticationManger implements AuthenticationManger {
+public class DefaultAuthenticationContext implements AuthenticationContext {
     private String token;
     public Principal principal;
 

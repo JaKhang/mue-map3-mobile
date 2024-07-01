@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 public class PlayList {
     private UUID id;
-    private String alias;
     private String name;
     private String owner;
     private String thumbnail;
