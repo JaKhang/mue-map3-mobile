@@ -104,7 +104,7 @@ public interface Api {
     Call<ApiBody<Void>> likeTracks(@Body UserActionRequest userActionRequest);
 
     @DELETE("/api/v1/me/tracks?")
-    Call<ApiBody<Void>> unLikeTracks(@Body UserActionRequest userActionRequest);
+    Call<ApiBody<Void>> unLikeTracks(@Query("ids") List<UUID> ids);
 
     @GET("/api/v1/me/tracks?")
     Call<ApiBody<InfiniteList<Track>>> findSavedTracks(@Query("page") Integer page,

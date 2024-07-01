@@ -74,6 +74,11 @@ public class DefaultAuthRepository extends AbstractRepository implements Authent
                 editor.remove(Key.ACCESS_TOKEN);
                 editor.apply();
             }
+
+            @Override
+            public void onDone() {
+                handler.onDone();
+            }
         });
     }
 

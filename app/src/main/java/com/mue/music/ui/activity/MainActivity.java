@@ -1,12 +1,16 @@
 package com.mue.music.ui.activity;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.palette.graphics.Palette;
@@ -21,12 +26,15 @@ import androidx.palette.graphics.Palette;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mue.music.BaseApplication;
 import com.mue.music.R;
 import com.mue.music.api.ApiHandler;
+import com.mue.music.feature.auth.AuthenticationContext;
 import com.mue.music.feature.player.PlayerEventHandler;
 import com.mue.music.feature.player.PlayerReducer;
 import com.mue.music.feature.player.PlayerStatus;
@@ -34,8 +42,10 @@ import com.mue.music.model.AlbumDetails;
 import com.mue.music.model.Genre;
 import com.mue.music.model.Track;
 import com.mue.music.model.domain.ApiBody;
+import com.mue.music.model.domain.ApiError;
 import com.mue.music.repository.AlbumRepository;
 import com.mue.music.repository.GenreRepository;
+import com.mue.music.repository.UserRepository;
 import com.mue.music.ui.fragment.HomeFragment;
 import com.mue.music.ui.fragment.SearchFragment;
 
@@ -43,6 +53,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -113,17 +124,13 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
 
         // Set trạng thái của nút yêu thích trên thanh phát nhạc và xử lý sự kiện
         favUncheckBtn.setOnClickListener(v -> {
-            favUncheckBtn.setVisibility(View.GONE);
-            favCheckBtn.setVisibility(View.VISIBLE);
-            Toast.makeText(this, "Add to You Liked", Toast.LENGTH_SHORT).show();
-            // TODO: Xử lý sự kiện (thêm dữ liệu,...) khi nhấn
+            Track track = playerReducer.getModel().getCurrentTrack();
+            handleLike(track);
         });
 
         favCheckBtn.setOnClickListener(v -> {
-            favUncheckBtn.setVisibility(View.VISIBLE);
-            favCheckBtn.setVisibility(View.GONE);
-            Toast.makeText(this, "Remove from You Liked", Toast.LENGTH_SHORT).show();
-            // TODO: Xử lý sự kiện (xóa dữ liệu,...) khi nhấn
+            Track track = playerReducer.getModel().getCurrentTrack();
+            handleUnlike(track);
         });
 
         // Set trạng thái cho nút play/pause
@@ -140,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
 //            openMusicPlayer();
         });
 
-        albumRepository.findById(UUID.fromString("77566fdb-39b6-41d9-bc21-6430b914ec0e"), new ApiHandler<AlbumDetails>() {
+        albumRepository.findById(UUID.fromString("55477256-961f-447a-9611-169942ff92d9"), new ApiHandler<AlbumDetails>() {
             @Override
             public void onSuccess(ApiBody<AlbumDetails> body) {
                 playerReducer.addTracks(body.getData().getTracks());
@@ -164,8 +171,6 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
     --------------------*/
     @Override
     public void onChangeTrack(int index) {
-        Log.i("TEST", index + "");
-        Log.i("TEST", playerReducer.getModel().getCurrentTrack().toString());
         Track track = playerReducer.getModel().getCurrentTrack();
         trackTile.setText(track.getName());
         artistName.setText(track.getArtistsName());
@@ -186,20 +191,39 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
                         // Extract colors using Palette
                         Palette.from(resource).generate(palette -> {
                             if (palette != null) {
-                                musicPlayerBar.setBackgroundColor(palette.getDarkVibrantColor(0));
+//                                int color = makeColorDarker(palette.getLightVibrantColor(1), 0.3f);
+//
+//                                musicPlayerBar.setBackgroundColor(color);
+                                int defaultColor = 0xFF333333;
+                                int vibrantColor = makeColorDarker(palette.getVibrantColor(defaultColor), 0.3f);
+                                setRoundedBackgroundColor(musicPlayerBar, vibrantColor);
                             }
+
                         });
                         return false;
                     }
                 })
                 .into(musicThumbnail);
 
+        if(track.isLiked()){
 
+
+
+            favUncheckBtn.setVisibility(View.GONE);
+            favCheckBtn.setVisibility(View.VISIBLE);
+        } else {
+            favUncheckBtn.setVisibility(View.VISIBLE);
+            favCheckBtn.setVisibility(View.GONE);
+        }
+    }
+    private int makeColorDarker(int color, float factor) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[2] *= 0.6f; // Reduce brightness
+        hsv[1] *= 0.5f;
+        return Color.HSVToColor(hsv);
     }
 
-    @Override
-    public void onChangeTrackList() {
-    }
 
     @Override
     public void onChangeStatus(@NotNull PlayerStatus status) {
@@ -231,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
         musicPlayerBar.setVisibility(View.GONE);
     }
 
+
     /*------------------
          Private
     --------------------*/
@@ -248,6 +273,61 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
                 .commit();
     }
 
+    private void handleLike(Track track){
+        if (!authenticationContext.isAuthenticated()){
+            handleNavigateToLogin();
+        } else {
+            userRepository.likeTracks(List.of(track.getId()), new ApiHandler<Void>() {
+                @Override
+                public void onSuccess(ApiBody<Void> body) {
+                    favUncheckBtn.setVisibility(View.GONE);
+                    favCheckBtn.setVisibility(View.VISIBLE);
+                    Toast.makeText(MainActivity.this, "Add to You Liked", Toast.LENGTH_SHORT).show();
+                    track.setLiked(true);
+                }
+
+                @Override
+                public void onFailure(ApiError apiError) {
+                    Toast.makeText(MainActivity.this, "Add to You Liked failure", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+    }
+
+    private void setRoundedBackgroundColor(View layout, int color) {
+        GradientDrawable background = (GradientDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.control_bar_round, null);
+        assert background != null;
+        background.setColor(color);
+        layout.setBackground(background);
+    }
+
+    private void handleUnlike(Track track){
+        if (!authenticationContext.isAuthenticated()){
+            handleNavigateToLogin();
+        } else {
+            userRepository.unLikeTracks(List.of(track.getId()), new ApiHandler<Void>() {
+                @Override
+                public void onSuccess(ApiBody<Void> body) {
+                    favUncheckBtn.setVisibility(View.VISIBLE);
+                    favCheckBtn.setVisibility(View.GONE);
+                    track.setLiked(false);
+                    Toast.makeText(MainActivity.this, body.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(ApiError apiError) {
+                    Toast.makeText(MainActivity.this, "Remove to You Liked failure", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+    }
+
+    private void handleNavigateToLogin(){
+        Log.i("TEST", "To login");
+    }
+
 
 //    private void openMusicPlayer() {
 //        Intent intent = new Intent(this, MusicPlayerActivity.class);
@@ -261,6 +341,19 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
     private GenreRepository genreRepository;
     private PlayerReducer playerReducer;
     private AlbumRepository albumRepository;
+    private UserRepository userRepository;
+    private AuthenticationContext authenticationContext;
+
+
+    @Inject
+    public void setAuthenticationContext(AuthenticationContext authenticationContext) {
+        this.authenticationContext = authenticationContext;
+    }
+
+    @Inject
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Inject
     public void setAlbumRepository(AlbumRepository albumRepository) {

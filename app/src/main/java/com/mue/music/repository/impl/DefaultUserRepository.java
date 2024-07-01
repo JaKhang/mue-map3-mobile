@@ -50,7 +50,7 @@ public class DefaultUserRepository extends AbstractRepository implements UserRep
 
     @Override
     public void unLikeTracks(List<UUID> ids, ApiHandler<Void> handler) {
-        Call<ApiBody<Void>> call = api.unLikeTracks(new UserActionRequest(ids));
+        Call<ApiBody<Void>> call = api.unLikeTracks(ids);
         enqueue(call, handler);
     }
 

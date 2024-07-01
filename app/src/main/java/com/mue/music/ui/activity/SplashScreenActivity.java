@@ -16,6 +16,7 @@ import com.mue.music.feature.player.PlayerService;
 import com.mue.music.model.Genre;
 import com.mue.music.model.Principal;
 import com.mue.music.model.domain.ApiBody;
+import com.mue.music.model.request.LoginRequest;
 import com.mue.music.repository.AuthenticationRepository;
 import com.mue.music.repository.GenreRepository;
 
@@ -57,10 +58,13 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void loadData() {
         task.add("loginWithLocalToken");
         task.add("loadAllGenres");
-
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail("kamilionbc@gmail.com");
+        loginRequest.setPassword("123456");
         authenticationRepository.loginWithLocalToken(new ApiHandler<Principal>() {
             @Override
             public void onDone() {
+                Log.e("JA","Auth");
                 handleLoaded("loginWithLocalToken");
             }
         });
@@ -77,7 +81,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 handleLoaded("loadAllGenres");
             }
         });
-        Log.e("JA", task.toString());
+
 
 
     }
