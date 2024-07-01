@@ -3,6 +3,7 @@ package com.mue.music.ui.adapter.search;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -56,7 +57,6 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
 
         public void bindData(Artist artist) {
             name.setText(artist.getName());
-
             setAllEvent();
         }
 

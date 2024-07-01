@@ -1,7 +1,8 @@
 package com.mue.music.ui.adapter.home;
 
-public enum CartType {
+public enum CardType {
     ALBUM,
     ARTIST,
-    PLAYLIST
+    PLAYLIST,
+    TRACK
 }

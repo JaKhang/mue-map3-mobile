@@ -1,7 +1,7 @@
 package com.mue.music.model;
 
 import com.mue.music.ui.adapter.home.CardItem;
-import com.mue.music.ui.adapter.home.CartType;
+import com.mue.music.ui.adapter.home.CardType;
 
 import java.util.UUID;
 
@@ -15,9 +15,17 @@ public class Artist implements CardItem {
     private int numberOfTracks;
     private boolean liked;
 
+    public Artist() {
+    }
+
+    public Artist(String name, String thumbnail) {
+        this.name = name;
+        this.thumbnail = thumbnail;
+    }
+
     @Override
-    public CartType getType() {
-        return CartType.ARTIST;
+    public CardType getCardType() {
+        return CardType.ARTIST;
     }
 
     @Override

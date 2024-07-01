@@ -1,11 +1,13 @@
 package com.mue.music.model;
 
+import com.mue.music.ui.adapter.home.CardItem;
+import com.mue.music.ui.adapter.home.CardType;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Track {
+public class Track implements CardItem {
     private UUID id;
     private String name;
     private String alias;
@@ -23,6 +25,14 @@ public class Track {
     private List<SimpleObject> genres;
     private int duration;
     private boolean liked;
+
+    public Track() {}
+
+    public Track(String name, String thumbnail, List<SimpleObject> artists) {
+        this.name = name;
+        this.thumbnail = thumbnail;
+        this.artists = artists;
+    }
 
     @Override
     public int hashCode() {
@@ -43,5 +53,20 @@ public class Track {
             stringJoiner.add(artist.getName());
         }
         return stringJoiner.toString();
+    }
+
+    @Override
+    public CardType getCardType() {
+        return CardType.TRACK;
+    }
+
+    @Override
+    public String getTitle() {
+        return name;
+    }
+
+    @Override
+    public String getSubtitle() {
+        return getArtistsName();
     }
 }

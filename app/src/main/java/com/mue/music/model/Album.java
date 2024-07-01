@@ -4,14 +4,18 @@ import static com.mue.music.util.CommonUtils.getArtistNames;
 
 import com.mue.music.model.enums.AlbumType;
 import com.mue.music.ui.adapter.home.CardItem;
-import com.mue.music.ui.adapter.home.CartType;
+import com.mue.music.ui.adapter.home.CardType;
 
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Data
 public class Album implements CardItem {
     private UUID id;
@@ -27,6 +31,15 @@ public class Album implements CardItem {
     private Integer duration;
     private boolean liked;
 
+    public Album() {}
+
+    public Album(String name, String thumbnail, AlbumType type, List<SimpleObject> artists) {
+        this.name = name;
+        this.thumbnail = thumbnail;
+        this.type = type;
+        this.artists = artists;
+    }
+
     @Override
     public String getTitle() {
         return name;
@@ -36,11 +49,10 @@ public class Album implements CardItem {
 
     @Override
     public String getSubtitle() {
-        return type.name() + " - " + getArtistNames(artists);
+        return type.name() + " | " + getArtistNames(artists);
     }
 
-    public CartType getType() {
-        return CartType.ALBUM;
-
+    public CardType getCardType() {
+        return CardType.ALBUM;
     }
 }

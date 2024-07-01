@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public interface CardItem {
     String getThumbnail();
-    CartType getType();
+    CardType getCardType();
     String getTitle();
     String getSubtitle();
     UUID getId();

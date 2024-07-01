@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
         playerReducer.addEventHandler(this);
         genres = (List<Genre>) getIntent().getSerializableExtra("genres");
 
-//        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this);
         this.setContentView(R.layout.activity_main);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
