@@ -15,6 +15,12 @@ public class QueueActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_queue);
 
+        // Đóng Music Player
+        findViewById(R.id.expand_button).setOnClickListener(v -> {
+            finish();
+            overridePendingTransition(0, R.anim.slide_down);
+        });
+
         // TODO: Render bằng QueueAdapter
     }
 }
