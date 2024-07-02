@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:contentDescription="Logo Mue"
-        android:src="@drawable/logo_mue_dev" />
+        android:src="@drawable/ic_logo_draw" />
 
     <TextView
         android:id="@+id/welcome_text"
@@ -22,7 +22,7 @@
         android:layout_marginTop="30dp"
         android:fontFamily="@font/helvetica_neue_bold"
         android:gravity="center"
-        android:text="Sign in Mue"
+        android:text="Sign up Mue"
         android:textColor="@android:color/white"
         android:textSize="40sp" />
 
