@@ -35,4 +35,7 @@ public interface PlayerReducer {
     void endTrack();
 
     void updateTime(int percent);
+
+    void setShuffle(boolean b);
+
 }

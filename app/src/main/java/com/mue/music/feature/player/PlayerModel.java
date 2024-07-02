@@ -1,5 +1,7 @@
 package com.mue.music.feature.player;
 
+import android.util.Log;
+
 import com.mue.music.model.Track;
 
 import java.util.ArrayList;
@@ -17,11 +19,12 @@ import lombok.Getter;
 public class PlayerModel {
     private int current = -1;
     private Mode mode = Mode.NONE;
-    private boolean isShuffle = true;
+    private boolean isShuffle = false;
     private final List<Track> tracks = new ArrayList<>();
     private PlayerStatus status = PlayerStatus.PLAY;
     private final Queue<Integer> played = new LinkedList<>();
     private int randStart = 0;
+    private int duration;//second
 
     int next() {
         return current = getNextIndex();
@@ -100,5 +103,14 @@ public class PlayerModel {
         if (isShuffle)
             return played.size() == tracks.size();
         return current == tracks.size();
+    }
+
+    void setDuration(int duration) {
+        Log.i("TEST", "Set duration " + duration);
+        this.duration = duration;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 }

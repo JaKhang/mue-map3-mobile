@@ -142,4 +142,13 @@ public class DefaultPlayer implements PlayerReducer {
     public void updateTime(int percent) {
         handlers.forEach(eventHandler -> eventHandler.onUpdateTime(percent));
     }
+
+    @Override
+    public void setShuffle(boolean b) {
+        if (!b) model.getPlayed().clear();
+        model.setShuffle(b);
+        handlers.forEach(eventHandler -> eventHandler.onShuffle(b));
+    }
+
+
 }

@@ -21,6 +21,7 @@ public class Track implements CardItem {
     private String alias;
     private String thumbnail;
     private SimpleObject album;
+    private Image image;
     private List<SimpleObject> artists;
     private List<SimpleObject> genres;
     private int duration;
