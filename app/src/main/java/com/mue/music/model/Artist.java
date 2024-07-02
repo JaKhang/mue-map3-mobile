@@ -42,4 +42,9 @@ public class Artist implements CardItem {
     public String getImageUrl() {
         return "";
     }
+
+    @Override
+    public String getFollowersOrArtists() {
+        return "";
+    }
 }

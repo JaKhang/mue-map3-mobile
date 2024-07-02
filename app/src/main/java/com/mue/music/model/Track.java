@@ -74,4 +74,9 @@ public class Track implements CardItem {
     public String getImageUrl() {
         return "";
     }
+
+    @Override
+    public String getFollowersOrArtists() {
+        return "";
+    }
 }

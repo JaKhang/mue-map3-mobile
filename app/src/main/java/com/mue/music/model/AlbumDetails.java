@@ -1,11 +1,11 @@
 package com.mue.music.model;
 
 import static com.mue.music.util.CommonUtils.getArtistDetailNames;
-import static com.mue.music.util.CommonUtils.getArtistNames;
 
 import com.mue.music.model.enums.AlbumType;
-import com.mue.music.ui.adapter.detail.ItemDetail;
 import com.mue.music.ui.adapter.detail.TypeDetail;
+import com.mue.music.ui.adapter.home.CardItem;
+import com.mue.music.ui.adapter.home.CardType;
 
 import java.sql.Timestamp;
 import java.util.Collections;
@@ -16,7 +16,7 @@ import lombok.Data;
 
 
 @Data
-public class AlbumDetails implements ItemDetail {
+public class AlbumDetails implements CardItem {
     private UUID id;
     private String alias;
     private String description;
@@ -34,32 +34,27 @@ public class AlbumDetails implements ItemDetail {
     private List<Track> tracks;
 
     @Override
-    public String getDetailName() {
+    public CardType getCardType() {
+        return CardType.ARTIST;
+    }
+
+    @Override
+    public String getTitle() {
+        return "";
+    }
+
+    @Override
+    public String getSubtitle() {
+        return "";
+    }
+
+    @Override
+    public String getImageUrl() {
         return "";
     }
 
     @Override
     public String getFollowersOrArtists() {
         return getArtistDetailNames(artists);
-    }
-
-    @Override
-    public List<Artist> getArtistDetails() {
-        return artists;
-    }
-
-    @Override
-    public List<TrackDetails> getTrackDetails() {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public String getImageUrl() {
-        return thumbnail;
-    }
-
-    @Override
-    public TypeDetail getTypeDetail() {
-        return TypeDetail.ALBUM;
     }
 }

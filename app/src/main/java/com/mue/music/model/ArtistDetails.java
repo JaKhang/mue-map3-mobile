@@ -1,8 +1,9 @@
 package com.mue.music.model;
 
 import com.mue.music.model.enums.ArtistType;
-import com.mue.music.ui.adapter.detail.ItemDetail;
 import com.mue.music.ui.adapter.detail.TypeDetail;
+import com.mue.music.ui.adapter.home.CardItem;
+import com.mue.music.ui.adapter.home.CardType;
 
 import java.sql.Timestamp;
 import java.util.Collections;
@@ -13,7 +14,7 @@ import java.util.UUID;
 import lombok.Data;
 
 @Data
-public class ArtistDetails implements ItemDetail {
+public class ArtistDetails implements CardItem {
     private UUID id;
     private String thumbnail;
     private String avatarUrl;
@@ -33,32 +34,27 @@ public class ArtistDetails implements ItemDetail {
     private boolean liked;
 
     @Override
-    public String getDetailName() {
+    public CardType getCardType() {
+        return null;
+    }
+
+    @Override
+    public String getTitle() {
         return name;
+    }
+
+    @Override
+    public String getSubtitle() {
+        return "";
+    }
+
+    @Override
+    public String getImageUrl() {
+        return "";
     }
 
     @Override
     public String getFollowersOrArtists() {
         return likes + " followers";
-    }
-
-    @Override
-    public List<Artist> getArtistDetails() {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public List<TrackDetails> getTrackDetails() {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public String getImageUrl() {
-        return avatarUrl;
-    }
-
-    @Override
-    public TypeDetail getTypeDetail() {
-        return TypeDetail.ARTIST;
     }
 }

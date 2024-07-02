@@ -57,6 +57,11 @@ public class Album implements CardItem {
         return "";
     }
 
+    @Override
+    public String getFollowersOrArtists() {
+        return "";
+    }
+
     public CardType getCardType() {
         return CardType.ALBUM;
     }

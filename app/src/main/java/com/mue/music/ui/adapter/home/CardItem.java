@@ -10,4 +10,5 @@ public interface CardItem extends Serializable {
     String getSubtitle();
     UUID getId();
     String getImageUrl();
+    String getFollowersOrArtists();
 }
