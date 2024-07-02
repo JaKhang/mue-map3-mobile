@@ -10,7 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.mue.music.BaseApplication;
 import com.mue.music.R;
+import com.mue.music.feature.player.PlayerReducer;
+
+import javax.inject.Inject;
 
 public class MusicPlayerActivity extends AppCompatActivity {
     private ImageButton favCheckedBtn;
@@ -27,10 +31,12 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         this.setContentView(R.layout.activity_music_player);
+        BaseApplication application = (BaseApplication) getApplication();
+        application.getApplicationComponents().inject(this);
 
         favCheckedBtn = findViewById(R.id.fav_checked);
         favUncheckedBtn = findViewById(R.id.fav_unchecked);
@@ -105,5 +111,13 @@ public class MusicPlayerActivity extends AppCompatActivity {
             repeatOffBtn.setVisibility(View.VISIBLE);
             repeatOneBtn.setVisibility(View.GONE);
         });
+    }
+
+
+    private PlayerReducer playerReducer;
+
+    @Inject
+    public void setPlayerReducer(PlayerReducer playerReducer) {
+        this.playerReducer = playerReducer;
     }
 }

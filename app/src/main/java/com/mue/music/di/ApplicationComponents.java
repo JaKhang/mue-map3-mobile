@@ -5,6 +5,7 @@ import com.mue.music.di.modules.ContextModule;
 import com.mue.music.di.modules.ServiceModule;
 import com.mue.music.feature.player.PlayerService;
 import com.mue.music.ui.activity.MainActivity;
+import com.mue.music.ui.activity.MusicPlayerActivity;
 import com.mue.music.ui.activity.SplashScreenActivity;
 import com.mue.music.ui.fragment.HomeFragment;
 import com.mue.music.ui.fragment.SearchFragment;
@@ -25,4 +26,6 @@ public interface ApplicationComponents {
     void inject(HomeFragment homeFragment);
 
     void inject(SearchFragment searchFragment);
+
+    void inject(MusicPlayerActivity musicPlayerActivity);
 }

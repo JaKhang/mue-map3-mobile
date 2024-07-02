@@ -1,5 +1,6 @@
 package com.mue.music.ui.activity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
 
         // Set sự kiện hiển thị Music Player Fragment khi bấm vào Music Player Bar
         musicPlayerBar.setOnClickListener(v -> {
-//            openMusicPlayer();
+            openMusicPlayer();
         });
 
 
@@ -337,10 +338,10 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
     }
 
 
-//    private void openMusicPlayer() {
-//        Intent intent = new Intent(this, MusicPlayerActivity.class);
-//        startActivity(intent);
-//    }
+    private void openMusicPlayer() {
+        Intent intent = new Intent(this, MusicPlayerActivity.class);
+        startActivity(intent);
+    }
 
 
     /*------------------
