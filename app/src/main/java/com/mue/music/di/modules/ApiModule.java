@@ -57,7 +57,7 @@ public class ApiModule {
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl("http://192.168.1.42:8080")
+                .baseUrl("http://192.168.3.107:8080")
                 .client(okHttpClient)
                 .build();
     }

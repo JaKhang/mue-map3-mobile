@@ -49,15 +49,18 @@ public class PlayerService extends Service implements PlayerEventHandler {
             public void onPlaybackStateChanged(int playbackState) {
                 if (playbackState == Player.STATE_ENDED) {
                     playerReducer.endTrack();
+                } else if (playbackState == Player.STATE_READY){
+                    playerReducer.getModel().setDuration((int) player.getDuration()/1000);
+
                 }
             }
+
         });
 
     }
 
     private void getCurrentPlayerPosition() {
-        int percent = (int) (player.getCurrentPosition() /(double) player.getDuration()* 100);
-        playerReducer.updateTime(percent);
+        playerReducer.updateTime((int) ((player.getCurrentPosition() / (double)player.getDuration()) * 100));
 
         if (player.isPlaying()) {
             updateTimeCounter.postDelayed(this::getCurrentPlayerPosition, player.getDuration()/100);
@@ -139,7 +142,7 @@ public class PlayerService extends Service implements PlayerEventHandler {
                 player.prepare();
                 playerReducer.setStatus(prev);
                 delay = player.getDuration() / 100;
-                Log.i("TEST", "Play track " + prev.toString());
+                Log.i("TEST", "Play track " + player.getDuration());
             }
 
             @Override
@@ -149,8 +152,14 @@ public class PlayerService extends Service implements PlayerEventHandler {
         });
     }
 
+    @Override
+    public void onUpdateTime(int percent) {
+        if(playerReducer.getModel().getStatus() == PlayerStatus.PAUSE){
+            long time = (player.getDuration() * percent) /100;
+            player.seekTo(time);
+        }
 
-
+    }
 
     /*------------------
          DI

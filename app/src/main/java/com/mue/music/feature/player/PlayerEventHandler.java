@@ -10,7 +10,7 @@ public interface PlayerEventHandler {
 
     }
 
-    default void onUpdateTime(int time){
+    default void onUpdateTime(int current){
 
     }
 
@@ -23,4 +23,7 @@ public interface PlayerEventHandler {
     default void onStartPlay(){};
 
     default void onStopPlay(){};
+
+    default void onShuffle(boolean b){};
+
 }

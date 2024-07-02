@@ -1,5 +1,8 @@
 package com.mue.music.ui.activity;
 
+import static com.mue.music.util.CommonUtils.calculatePercent;
+import static com.mue.music.util.CommonUtils.makeColorDarker;
+
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -153,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
         onChangeStatus(playerReducer.getModel().getStatus());
         onChangeTrack(playerReducer.getModel().getCurrent());
 
-        albumRepository.findById(UUID.fromString("151702af-fc78-4c40-9513-90e0d7c0fb67"), new ApiHandler<AlbumDetails>() {
+        albumRepository.findById(UUID.fromString("55477256-961f-447a-9611-169942ff92d9"), new ApiHandler<AlbumDetails>() {
             @Override
             public void onSuccess(ApiBody<AlbumDetails> body) {
                 playerReducer.addTracks(body.getData().getTracks());
@@ -176,7 +179,8 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
     @Override
     public void onChangeTrack(int index) {
         if (index == -1)
-            return;;
+            return;
+        ;
         Track track = playerReducer.getModel().getCurrentTrack();
         trackTile.setText(track.getName());
         artistName.setText(track.getArtistsName());
@@ -202,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
 //
 //                                musicPlayerBar.setBackgroundColor(color);
                                 int defaultColor = 0xFF333333;
-                                int vibrantColor = makeColorDarker(palette.getVibrantColor(palette.getDominantColor(defaultColor)), 0.3f);
+                                int vibrantColor = makeColorDarker(palette.getVibrantColor(palette.getDominantColor(defaultColor)));
                                 setRoundedBackgroundColor(musicPlayerBar, vibrantColor);
                             }
 
@@ -212,8 +216,7 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
                 })
                 .into(musicThumbnail);
 
-        if(track.isLiked()){
-
+        if (track.isLiked()) {
 
 
             favUncheckBtn.setVisibility(View.GONE);
@@ -222,13 +225,6 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
             favUncheckBtn.setVisibility(View.VISIBLE);
             favCheckBtn.setVisibility(View.GONE);
         }
-    }
-    private int makeColorDarker(int color, float factor) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        hsv[2] *= 0.35f; // Reduce brightness
-        hsv[1] *= 0.5f;
-        return Color.HSVToColor(hsv);
     }
 
 
@@ -248,8 +244,9 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
     }
 
     @Override
-    public void onUpdateTime(int time) {
-        progressBar.setProgress(time);
+    public void onUpdateTime(int percent) {
+        progressBar.setProgress(percent);
+
     }
 
     @Override
@@ -282,8 +279,8 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
                 .commit();
     }
 
-    private void handleLike(Track track){
-        if (!authenticationContext.isAuthenticated()){
+    private void handleLike(Track track) {
+        if (!authenticationContext.isAuthenticated()) {
             handleNavigateToLogin();
         } else {
             userRepository.likeTracks(List.of(track.getId()), new ApiHandler<Void>() {
@@ -304,15 +301,8 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
         }
     }
 
-    private void setRoundedBackgroundColor(View layout, int color) {
-        GradientDrawable background = (GradientDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.control_bar_round, null);
-        assert background != null;
-        background.setColor(color);
-        layout.setBackground(background);
-    }
-
-    private void handleUnlike(Track track){
-        if (!authenticationContext.isAuthenticated()){
+    private void handleUnlike(Track track) {
+        if (!authenticationContext.isAuthenticated()) {
             handleNavigateToLogin();
         } else {
             userRepository.unLikeTracks(List.of(track.getId()), new ApiHandler<Void>() {
@@ -333,7 +323,16 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
         }
     }
 
-    private void handleNavigateToLogin(){
+    private void setRoundedBackgroundColor(View layout, int color) {
+        GradientDrawable background = (GradientDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.control_bar_round, null);
+        assert background != null;
+        background.setColor(color);
+        layout.setBackground(background);
+    }
+
+
+
+    private void handleNavigateToLogin() {
         Log.i("TEST", "To login");
     }
 

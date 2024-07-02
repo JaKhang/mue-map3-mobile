@@ -112,14 +112,13 @@ public class SearchFragment extends Fragment implements Runnable {
                     handler.removeCallbacks(SearchFragment.this);
                     handler.postDelayed(SearchFragment.this, 600);
                 }
-
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
+
+        ;
 
         // Bắt sự kiện bấm vào các nút trên thanh điều hướng
         view.findViewById(R.id.nav_tracks).setOnClickListener(v -> {
