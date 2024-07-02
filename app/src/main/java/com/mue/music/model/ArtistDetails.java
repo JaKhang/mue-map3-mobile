@@ -1,12 +1,10 @@
 package com.mue.music.model;
 
 import com.mue.music.model.enums.ArtistType;
-import com.mue.music.ui.adapter.detail.TypeDetail;
 import com.mue.music.ui.adapter.home.CardItem;
 import com.mue.music.ui.adapter.home.CardType;
 
 import java.sql.Timestamp;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;

@@ -3,12 +3,10 @@ package com.mue.music.model;
 import static com.mue.music.util.CommonUtils.getArtistDetailNames;
 
 import com.mue.music.model.enums.AlbumType;
-import com.mue.music.ui.adapter.detail.TypeDetail;
 import com.mue.music.ui.adapter.home.CardItem;
 import com.mue.music.ui.adapter.home.CardType;
 
 import java.sql.Timestamp;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
