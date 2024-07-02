@@ -64,9 +64,7 @@ public class ListTrackRecyclerAdapter extends RecyclerView.Adapter<ListTrackRecy
             this.txtCounter = itemView.findViewById(R.id.track_counter);
 
             layoutItem.setOnClickListener(v -> {
-                if (listener != null) {
-                    listener.onItemClick(getAdapterPosition());
-                }
+
             });
         }
 
@@ -76,7 +74,6 @@ public class ListTrackRecyclerAdapter extends RecyclerView.Adapter<ListTrackRecy
                     .into(backgroundImg);
             txtName.setText(item.getTitle());
             txtCounter.setText("");
-
         }
     }
 }
