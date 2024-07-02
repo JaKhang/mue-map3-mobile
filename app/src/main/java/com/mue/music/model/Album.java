@@ -52,6 +52,11 @@ public class Album implements CardItem {
         return type.name() + " | " + getArtistNames(artists);
     }
 
+    @Override
+    public String getImageUrl() {
+        return "";
+    }
+
     public CardType getCardType() {
         return CardType.ALBUM;
     }

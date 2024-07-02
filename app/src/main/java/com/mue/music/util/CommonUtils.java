@@ -14,4 +14,12 @@ public class CommonUtils {
         }
         return stringJoiner.toString();
     }
+
+    public static String getArtistDetailNames(Collection<Artist> artists){
+        StringJoiner stringJoiner = new StringJoiner(", ");
+        for (Artist artist : artists){
+            stringJoiner.add(artist.getName());
+        }
+        return stringJoiner.toString();
+    }
 }

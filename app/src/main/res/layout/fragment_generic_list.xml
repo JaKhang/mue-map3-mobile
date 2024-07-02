@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.activity.MainActivity">
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_arrow_back"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"/>
+
+    <!-- Artist Image -->
+    <ImageView
+        android:id="@+id/background_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop"
+        android:layout_below="@id/back_button"/>
+
+    <!-- Artist Name -->
+
+    <RelativeLayout
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/background_image">
+
+        <!-- Monthly Listeners -->
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/helvetica_neue_bold"
+            android:text="MONO"
+            android:textColor="@color/white"
+            android:textSize="48sp" />
+
+        <TextView
+            android:id="@+id/followers_or_album"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="330.275 followers"
+            android:fontFamily="@font/helvetica_neue_medium"
+            android:textColor="@color/deep_gray"
+            android:textSize="14sp"
+            android:layout_below="@id/name"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/follow_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="32dp"
+                android:text="Theo dõi"
+                android:textColor="@color/white"
+                android:fontFamily="@font/helvetica_neue_medium"
+                android:background="@drawable/white_border_button"
+                android:layout_marginTop="12dp"/>
+
+            <LinearLayout
+                android:id="@+id/top_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <ImageButton
+                    android:id="@+id/play"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:importantForAccessibility="no"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_play_circle" />
+
+                <ImageButton
+                    android:id="@+id/pause"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:importantForAccessibility="no"
+                    android:visibility="gone"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_pause_circle" />
+
+                <ImageButton
+                    android:id="@+id/shuffle_play_off"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:importantForAccessibility="no"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_shuffle_off" />
+
+                <ImageButton
+                    android:id="@+id/shuffle_play_on"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:importantForAccessibility="no"
+                    android:visibility="gone"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_shuffle_on" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/followed_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đang theo dõi"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/helvetica_neue_medium"
+            android:background="@drawable/green_border_button"
+            android:visibility="gone"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"/>
+
+
+    </RelativeLayout>
+
+
+    <!-- Popular Songs List -->
+    <LinearLayout
+        android:id="@+id/popular_songs_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/description"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+    </LinearLayout>
+
+</RelativeLayout>

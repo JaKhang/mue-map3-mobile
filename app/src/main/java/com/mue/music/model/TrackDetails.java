@@ -1,6 +1,10 @@
 package com.mue.music.model;
 
+import com.mue.music.ui.adapter.detail.ItemDetail;
+import com.mue.music.ui.adapter.detail.TypeDetail;
+
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -8,7 +12,7 @@ import java.util.UUID;
 import lombok.Data;
 
 @Data
-public class TrackDetails {
+public class TrackDetails implements ItemDetail {
     private UUID id;
     private String name;
     private String alias;
@@ -29,4 +33,34 @@ public class TrackDetails {
     private Boolean isOfficial;
     private Integer index;
     private Boolean isLike;
+
+    @Override
+    public String getDetailName() {
+        return "";
+    }
+
+    @Override
+    public String getFollowersOrArtists() {
+        return "";
+    }
+
+    @Override
+    public List<Artist> getArtistDetails() {
+        return artists;
+    }
+
+    @Override
+    public List<TrackDetails> getTrackDetails() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public String getImageUrl() {
+        return "";
+    }
+
+    @Override
+    public TypeDetail getTypeDetail() {
+        return TypeDetail.TRACK;
+    }
 }

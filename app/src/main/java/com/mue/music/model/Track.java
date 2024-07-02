@@ -69,4 +69,9 @@ public class Track implements CardItem {
     public String getSubtitle() {
         return getArtistsName();
     }
+
+    @Override
+    public String getImageUrl() {
+        return "";
+    }
 }

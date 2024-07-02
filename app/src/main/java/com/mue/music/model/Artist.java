@@ -37,4 +37,9 @@ public class Artist implements CardItem {
     public String getSubtitle() {
         return "Artists";
     }
+
+    @Override
+    public String getImageUrl() {
+        return "";
+    }
 }
