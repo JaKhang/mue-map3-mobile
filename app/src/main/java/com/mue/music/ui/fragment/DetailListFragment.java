@@ -14,12 +14,17 @@ import androidx.fragment.app.Fragment;
 
 import com.mue.music.R;
 
-public class DetailFragment extends Fragment {
+public class DetailListFragment extends Fragment {
     private Button followBtn;
     private ImageButton playBtn;
     private ImageButton pauseBtn;
     private ImageButton shufflePlayOffBtn;
     private ImageButton shufflePlayOnBtn;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Nullable
     @Override
@@ -63,5 +68,7 @@ public class DetailFragment extends Fragment {
             shufflePlayOffBtn.setVisibility(View.VISIBLE);
             shufflePlayOnBtn.setVisibility(View.GONE);
         });
+
+        // TODO: Render dữ liệu xài adapter ListTrackRecyclerAdapter nha Ja, let's goooo ~
     }
 }
