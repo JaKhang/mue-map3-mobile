@@ -1,5 +1,7 @@
 package com.mue.music.ui.adapter.search;
 
+import static com.mue.music.util.CommonUtils.getArtistNames;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mue.music.R;
-import com.mue.music.model_test_ui.Album;
+import com.mue.music.model.Album;
 
 import java.util.List;
 
@@ -52,13 +54,13 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
 
         public AlbumViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.name);
-            artistTextView = itemView.findViewById(R.id.artist);
+            nameTextView = itemView.findViewById(R.id.title);
+            artistTextView = itemView.findViewById(R.id.subtitle);
         }
 
         public void bindData(Album album) {
             nameTextView.setText(album.getName());
-            artistTextView.setText(album.getArtist());
+            artistTextView.setText(getArtistNames(album.getArtists()));
         }
     }
 }

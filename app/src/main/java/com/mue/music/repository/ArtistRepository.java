@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface ArtistRepository {
 
-    void findAll(PageRequest pageRequest, ApiHandler<InfiniteList<Artist>> handler);
+    void findAll(PageRequest pageRequest,String query, ApiHandler<InfiniteList<Artist>> handler);
 
     void findById(UUID uuid, ApiHandler<ArtistDetails> handler);
 

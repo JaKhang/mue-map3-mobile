@@ -4,6 +4,8 @@ import com.mue.music.api.Api;
 import com.mue.music.model.Track;
 import com.mue.music.model.TrackDetails;
 import com.mue.music.model.domain.ApiBody;
+import com.mue.music.model.domain.InfiniteList;
+import com.mue.music.model.domain.PageRequest;
 import com.mue.music.model.enums.Bitrate;
 import com.mue.music.repository.AbstractRepository;
 import com.mue.music.api.ApiHandler;
@@ -34,5 +36,11 @@ public class DefaultTrackRepository extends AbstractRepository implements TrackR
     @Override
     public void findAllByAlbumId(UUID artistId, ApiHandler<List<Track>> handler) {
 
+    }
+
+    @Override
+    public void search(String keyword, int limit, ApiHandler<InfiniteList<Track>> handler) {
+        Call<ApiBody<InfiniteList<Track>>> call = api.findTracks("name:" + keyword, limit);
+        enqueue(call, handler);
     }
 }

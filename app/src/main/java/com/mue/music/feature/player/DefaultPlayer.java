@@ -32,15 +32,17 @@ public class DefaultPlayer implements PlayerReducer {
         if (tracks.isEmpty())
             return;
 
-        if (model.getTracks().isEmpty()){
+        if (model.getTracks().isEmpty()) {
             model.getTracks().addAll(tracks);
-            if (model.isShuffle()){
+            if (model.isShuffle()) {
                 model.setCurrent(model.randomTrack());
             } else {
                 model.setCurrent(0);
             }
-            this.handlers.forEach(PlayerEventHandler::onChangeTrackList);
-            this.handlers.forEach(eventHandler -> eventHandler.onChangeTrack(model.getCurrent()));
+            this.handlers.forEach(eventHandler -> {
+                eventHandler.onStartPlay();
+                eventHandler.onChangeTrack(model.getCurrent());
+            });
         } else {
             model.getPlayed().clear();
             this.handlers.forEach(PlayerEventHandler::onChangeTrackList);
@@ -50,7 +52,26 @@ public class DefaultPlayer implements PlayerReducer {
 
     @Override
     public void removeTracks(List<Track> tracks) {
-        for (Track track: tracks){
+        for (Track track : tracks) {
+
+            int index = model.getTracks().indexOf(track);
+            if (index == -1) return;
+            int current = model.getCurrent();
+            if (current == index) {
+                if (model.isShuffle()) model.getPlayed().clear();
+                next();
+                continue;
+            } else if (current > index) {
+                current--;
+                model.setCurrent(current);
+            }
+
+
+            if (model.getTracks().isEmpty()) {
+                setStatus(PlayerStatus.PAUSE);
+                this.handlers.forEach(PlayerEventHandler::onStopPlay);
+                return;
+            }
         }
     }
 

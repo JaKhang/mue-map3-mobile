@@ -6,7 +6,7 @@
     <string name="premium">Premium</string>
     <string name="morning">Good morning</string>
     <string name="album_zone">Album</string>
-    <string name="track_zone">Track</string>
+    <string name="track_zone">V-Pop</string>
     <string name="artist_zone">Artist</string>
     <string name="saved_track">Saved Track</string>
     <string name="play">Play</string>
@@ -20,4 +20,5 @@
     <string name="album">Album</string>
     <string name="you_liked">You Liked</string>
     <string name="logo_icon">Logo icon</string>
+    <string name="band_zone">Band</string>
 </resources>

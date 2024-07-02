@@ -39,7 +39,13 @@ public class DefaultAlbumRepository extends AbstractRepository implements AlbumR
 
     @Override
     public void findByArtistId(UUID artistId, PageRequest pageRequest, String query, ApiHandler<InfiniteList<Album>> handler) {
-        Call<ApiBody<InfiniteList<Album>>> call = api.findAlbumByArtistId(artistId, pageRequest.getPage(), pageRequest.getSize(), pageRequest.toSortString(), query);
+        Call<ApiBody<InfiniteList<Album>>> call = api.findAlbumsByArtistId(artistId, pageRequest.getPage(), pageRequest.getSize(), pageRequest.toSortString(), query);
+        enqueue(call, handler);
+    }
+
+    @Override
+    public void findByGenreId(UUID uuid, PageRequest pageRequest, ApiHandler<InfiniteList<Album>> handler) {
+        Call<ApiBody<InfiniteList<Album>>> call = api.findAlbumsByGenreId(uuid, pageRequest.getPage(), pageRequest.getSize(), pageRequest.toSortString());
         enqueue(call, handler);
     }
 

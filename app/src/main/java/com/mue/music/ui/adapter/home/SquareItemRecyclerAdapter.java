@@ -6,28 +6,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mue.music.R;
-import com.mue.music.model.Album;
-import com.mue.music.model.SimpleObject;
-import com.mue.music.model.Track;
-import com.mue.music.model.enums.AlbumType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SquareItemRecyclerAdapter extends RecyclerView.Adapter<SquareItemRecyclerAdapter.SquareItemViewHolder> {
     private final List<CardItem> items;
     private final int layoutId;
+    private final RecyclerHandler handler;
 
-    public SquareItemRecyclerAdapter(List<CardItem> items, int layoutId) {
+    public SquareItemRecyclerAdapter(List<CardItem> items, int layoutId, RecyclerHandler handler) {
         this.items = items;
         this.layoutId = layoutId;
+        this.handler = handler;
     }
 
     @NonNull
@@ -53,6 +49,7 @@ public class SquareItemRecyclerAdapter extends RecyclerView.Adapter<SquareItemRe
         private ImageView imageView;
         private TextView txtTitle;
         private TextView txtArtist;
+        private RecyclerHandler handler;
 
         public SquareItemViewHolder(View itemView) {
             super(itemView);
@@ -61,24 +58,27 @@ public class SquareItemRecyclerAdapter extends RecyclerView.Adapter<SquareItemRe
             itemLayout = itemView.findViewById(R.id.item);
             imageView = itemView.findViewById(R.id.image);
             txtTitle = itemView.findViewById(R.id.title);
-            txtArtist = itemView.findViewById(R.id.artist);
+            txtArtist = itemView.findViewById(R.id.subtitle);
+        }
+
+        public SquareItemViewHolder(@NonNull View itemView, RecyclerHandler handler) {
+            this(itemView);
+            this.handler = handler;
         }
 
         public void bindData(CardItem item, int position) {
             // Sử dụng Glide để tải ảnh từ URL vào ImageView trong item layout
             Glide.with(imageView.getContext())
                     .load(item.getThumbnail())
+                    .placeholder(R.drawable.square_loader)
                     .into(imageView);
             txtTitle.setText(item.getTitle());
             txtArtist.setText(item.getSubtitle());
-
-            setAllEvent(position);
-        }
-
-        private void setAllEvent(int position) {
             itemLayout.setOnClickListener(v -> {
-                Toast.makeText(itemLayout.getContext(), "Item square clicked position: " + position, Toast.LENGTH_SHORT).show();
+                if (handler != null)
+                    handler.onClick(item);
             });
         }
+
     }
 }

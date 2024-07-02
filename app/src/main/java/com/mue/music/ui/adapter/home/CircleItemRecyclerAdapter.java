@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,10 +17,12 @@ import java.util.List;
 public class CircleItemRecyclerAdapter extends RecyclerView.Adapter<CircleItemRecyclerAdapter.CircleItemViewHolder> {
     private final List<CardItem> items;
     private final int layoutId;
+    private final RecyclerHandler handler;
 
-    public CircleItemRecyclerAdapter(List<CardItem> items, int layoutId) {
+    public CircleItemRecyclerAdapter(List<CardItem> items, int layoutId, RecyclerHandler recyclerHandler) {
         this.items = items;
         this.layoutId = layoutId;
+        this.handler = recyclerHandler;
     }
 
     @NonNull
@@ -45,30 +46,48 @@ public class CircleItemRecyclerAdapter extends RecyclerView.Adapter<CircleItemRe
     public static class CircleItemViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView textView;
+        private RecyclerHandler handler;
 
         public CircleItemViewHolder(View itemView) {
             super(itemView);
             // Các image thuộc 2 xml khác nhau =>
             // Có thể giống id là image do xml là độc lập với nhau => Tái sử dụng cùng id.
             imageView = itemView.findViewById(R.id.image);
-            textView = itemView.findViewById(R.id.name);
+            textView = itemView.findViewById(R.id.title);
+        }
+
+        public CircleItemViewHolder(@NonNull View itemView, RecyclerHandler handler) {
+            this(itemView);
+            this.handler = handler;
         }
 
         public void bindData(CardItem item, int position) {
             // Sử dụng Glide để tải ảnh từ URL vào ImageView trong item layout, thêm circleCrop() để tạo hình tròn
             Glide.with(imageView.getContext())
                     .load(item.getThumbnail())
+                    .placeholder(R.drawable.cycle_loader)
                     .circleCrop()
                     .into(imageView);
             textView.setText(item.getTitle());
+            imageView.setOnClickListener(v -> {
+                if (handler != null){
+                    handler.onClick(item);
+                }
+            });
+        }
+    }
 
-            setAllEvent(position);
+    public static class CircleLoaderViewHolder extends RecyclerView.ViewHolder {
+        private ImageView imageView;
+        private TextView textView;
+
+
+        public CircleLoaderViewHolder(@NonNull View itemView) {
+            super(itemView);
         }
 
-        private void setAllEvent(int position) {
-            imageView.setOnClickListener(v -> {
-                Toast.makeText(imageView.getContext(), "Image circle clicked position: " + position, Toast.LENGTH_SHORT).show();
-            });
+        public void bindData(CardItem item, int position) {
+            imageView.setImageResource(R.drawable.cycle_loader);
         }
     }
 }

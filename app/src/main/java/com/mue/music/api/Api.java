@@ -83,6 +83,15 @@ public interface Api {
             @Query("sort") String sort,
             @Query("keyword") String keyword);
 
+    @GET("/api/v1/genres/{id}/albums")
+    Call<ApiBody<InfiniteList<Album>>> findAlbumsByGenreId(
+            @Path("id") UUID id,
+            @Query("page") Integer page,
+            @Query("size") Integer size,
+            @Query("sort") String sort);
+
+
+
 
     /*------------------
             User
@@ -164,11 +173,11 @@ public interface Api {
 
 
     @GET("/api/v1/artists/{id}/albums?")
-    Call<ApiBody<InfiniteList<Album>>> findAlbumByArtistId(@Path("id") UUID artistId,
-                                                           @Query("page") Integer page,
-                                                           @Query("size") Integer size,
-                                                           @Query("sort") String sort,
-                                                           @Query("query") String keyword);
+    Call<ApiBody<InfiniteList<Album>>> findAlbumsByArtistId(@Path("id") UUID artistId,
+                                                            @Query("page") Integer page,
+                                                            @Query("size") Integer size,
+                                                            @Query("sort") String sort,
+                                                            @Query("query") String keyword);
 
 
     /*------------------
@@ -179,4 +188,7 @@ public interface Api {
 
     @GET("/api/v1/genres")
     Call<ApiBody<List<Genre>>> findGenres();
+
+    @GET("/api/v1/tracks?")
+    Call<ApiBody<InfiniteList<Track>>> findTracks(@Query("query") String keyword, @Query("size") int limit);
 }

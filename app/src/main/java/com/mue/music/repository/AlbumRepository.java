@@ -18,4 +18,5 @@ public interface AlbumRepository {
 
     void findByArtistId(UUID artistId, PageRequest pageRequest, String query, ApiHandler<InfiniteList<Album>> handler);
 
+    void findByGenreId(UUID uuid, PageRequest releaseDate, ApiHandler<InfiniteList<Album>> apiHandler);
 }

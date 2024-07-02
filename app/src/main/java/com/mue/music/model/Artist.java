@@ -35,6 +35,6 @@ public class Artist implements CardItem {
 
     @Override
     public String getSubtitle() {
-        return "";
+        return "Artists";
     }
 }

@@ -6,6 +6,8 @@ import com.mue.music.di.modules.ServiceModule;
 import com.mue.music.feature.player.PlayerService;
 import com.mue.music.ui.activity.MainActivity;
 import com.mue.music.ui.activity.SplashScreenActivity;
+import com.mue.music.ui.fragment.HomeFragment;
+import com.mue.music.ui.fragment.SearchFragment;
 
 import javax.inject.Singleton;
 
@@ -19,4 +21,8 @@ public interface ApplicationComponents {
     void inject(SplashScreenActivity splashScreenActivity);
 
     void inject(PlayerService playerService);
+
+    void inject(HomeFragment homeFragment);
+
+    void inject(SearchFragment searchFragment);
 }

@@ -3,14 +3,14 @@ package com.mue.music.ui.adapter.search;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mue.music.R;
-import com.mue.music.model_test_ui.Artist;
+import com.mue.music.model.Artist;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistView
 
         public ArtistViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.name = itemView.findViewById(R.id.name);
+            this.name = itemView.findViewById(R.id.title);
         }
 
         public void bindData(Artist artist) {

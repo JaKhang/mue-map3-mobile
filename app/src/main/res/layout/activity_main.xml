@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?><!-- Sử dụng CoordinatorLayout vì nó hỗ trợ  -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -23,7 +23,7 @@
         <LinearLayout
             android:id="@+id/music_player_bar"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_above="@id/bottom_navigation_view"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
@@ -36,8 +36,8 @@
 
             <ImageView
                 android:id="@+id/music_thumbnail"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_gravity="center_vertical"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_home" />
@@ -97,8 +97,8 @@
 
             <ImageButton
                 android:id="@+id/play"
-                android:layout_width="30dp"
-                android:layout_height="36dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="4dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -108,8 +108,8 @@
 
             <ImageButton
                 android:id="@+id/pause"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="4dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -127,9 +127,13 @@
             android:layout_height="2dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:indeterminateTint="@color/white"
+            android:progressTint="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/music_player_bar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+
+            />
 
         <!-- Bottom Navigation View -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -147,10 +151,10 @@
             app:itemTextColor="@color/bottom_nav_selector_color"
             app:labelVisibilityMode="labeled"
             app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-            app:menu="@menu/bottom_navigation_menu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_navigation_menu">
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 

@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
     /*------------------
         Data
     --------------------*/
-    private List<Genre> genres = new ArrayList<>();
 
 
     /*------------------
@@ -90,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
         BaseApplication application = (BaseApplication) getApplication();
         application.getApplicationComponents().inject(this);
         playerReducer.addEventHandler(this);
-        genres = (List<Genre>) getIntent().getSerializableExtra("genres");
 
         EdgeToEdge.enable(this);
         this.setContentView(R.layout.activity_main);
@@ -117,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
                 return true;
             } else if (item.getItemId() == R.id.navigation_search) {
 
-                loadFragment(new SearchFragment(genres));
+                loadFragment(new SearchFragment());
                 return true;
             } else {
                 return false;
@@ -149,16 +147,18 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
 //            openMusicPlayer();
         });
 
-//        albumRepository.findById(UUID.fromString("55a82768-3d33-4e9a-a345-6d8df30ae07f"), new ApiHandler<AlbumDetails>() {
-//            @Override
-//            public void onSuccess(ApiBody<AlbumDetails> body) {
-//                playerReducer.addTracks(body.getData().getTracks());
-//                playerReducer.play();
-//            }
-//        });
+
         onStopPlay();
         onChangeStatus(playerReducer.getModel().getStatus());
         onChangeTrack(playerReducer.getModel().getCurrent());
+
+        albumRepository.findById(UUID.fromString("151702af-fc78-4c40-9513-90e0d7c0fb67"), new ApiHandler<AlbumDetails>() {
+            @Override
+            public void onSuccess(ApiBody<AlbumDetails> body) {
+                playerReducer.addTracks(body.getData().getTracks());
+                playerReducer.play();
+            }
+        });
 
     }
 
@@ -182,9 +182,9 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
         Glide.with(this)
                 .asBitmap()
                 .load(track.getThumbnail())
-                .placeholder(R.drawable.placeholder) // Optional: placeholder image
-                .error(R.drawable.placeholder)
-                .apply(new RequestOptions().transform(new RoundedCorners(15)).error(R.drawable.placeholder).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE))
+                .placeholder(R.drawable.cycle_loader) // Optional: placeholder image
+                .error(R.drawable.cycle_loader)
+                .apply(new RequestOptions().transform(new RoundedCorners(12)).error(R.drawable.square_loader).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE))
                 .listener(new RequestListener<Bitmap>() {
 
                     @Override
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements PlayerEventHandle
 //
 //                                musicPlayerBar.setBackgroundColor(color);
                                 int defaultColor = 0xFF333333;
-                                int vibrantColor = makeColorDarker(palette.getVibrantColor(defaultColor), 0.3f);
+                                int vibrantColor = makeColorDarker(palette.getVibrantColor(palette.getDominantColor(defaultColor)), 0.3f);
                                 setRoundedBackgroundColor(musicPlayerBar, vibrantColor);
                             }
 

@@ -21,8 +21,8 @@ public class DefaultArtistRepository extends AbstractRepository implements Artis
     }
 
     @Override
-    public void findAll(PageRequest pageRequest, ApiHandler<InfiniteList<Artist>> handler) {
-        Call<ApiBody<InfiniteList<Artist>>> call = api.findArtists(pageRequest.getPage(), pageRequest.size, pageRequest.toSortString(), null);
+    public void findAll(PageRequest pageRequest, String query, ApiHandler<InfiniteList<Artist>> handler) {
+        Call<ApiBody<InfiniteList<Artist>>> call = api.findArtists(pageRequest.getPage(), pageRequest.size, pageRequest.toSortString(),    query);
         enqueue(call, handler);
     }
 
