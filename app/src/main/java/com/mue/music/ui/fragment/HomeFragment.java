@@ -86,6 +86,6 @@ public class HomeFragment extends Fragment {
         RenderRecyclerComponentUtil.setAdapterForSquareItem(squareImageList, squareRecyclerViews, R.layout.track_item, R.layout.album_item, R.layout.saved_item);
 
         // (đối với các item có hình tròn như Artist)
-        RenderRecyclerComponentUtil.setAdapterForCircleItem(circleImageList, circleRecyclerViews, R.layout.artist_item);
+        RenderRecyclerComponentUtil.setAdapterForCircleItem(this, circleImageList, circleRecyclerViews, R.layout.artist_item);
     }
 }

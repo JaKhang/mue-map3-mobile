@@ -12,23 +12,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mue.music.R;
+import com.mue.music.ui.adapter.event.OnItemClickListener;
 
 import java.util.List;
 
 public class CircleItemRecyclerAdapter extends RecyclerView.Adapter<CircleItemRecyclerAdapter.CircleItemViewHolder> {
     private final List<CardItem> items;
     private final int layoutId;
+    private final OnItemClickListener listener;
 
-    public CircleItemRecyclerAdapter(List<CardItem> items, int layoutId) {
+    public CircleItemRecyclerAdapter(List<CardItem> items, int layoutId, OnItemClickListener listener) {
         this.items = items;
         this.layoutId = layoutId;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public CircleItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
-        return new CircleItemViewHolder(view);
+        return new CircleItemViewHolder(view, listener);
     }
 
     @Override
@@ -46,12 +49,19 @@ public class CircleItemRecyclerAdapter extends RecyclerView.Adapter<CircleItemRe
         private ImageView imageView;
         private TextView textView;
 
-        public CircleItemViewHolder(View itemView) {
+        public CircleItemViewHolder(View itemView, OnItemClickListener listener) {
             super(itemView);
             // Các image thuộc 2 xml khác nhau =>
             // Có thể giống id là image do xml là độc lập với nhau => Tái sử dụng cùng id.
             imageView = itemView.findViewById(R.id.image);
             textView = itemView.findViewById(R.id.name);
+
+            // Set click listener for the imageView
+            imageView.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onItemClick(getAdapterPosition());
+                }
+            });
         }
 
         public void bindData(CardItem item, int position) {
@@ -61,14 +71,6 @@ public class CircleItemRecyclerAdapter extends RecyclerView.Adapter<CircleItemRe
                     .circleCrop()
                     .into(imageView);
             textView.setText(item.getTitle());
-
-            setAllEvent(position);
-        }
-
-        private void setAllEvent(int position) {
-            imageView.setOnClickListener(v -> {
-                Toast.makeText(imageView.getContext(), "Image circle clicked position: " + position, Toast.LENGTH_SHORT).show();
-            });
         }
     }
 }
