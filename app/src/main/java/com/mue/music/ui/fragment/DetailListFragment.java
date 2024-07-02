@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
 import com.mue.music.R;
@@ -20,6 +21,8 @@ public class DetailListFragment extends Fragment {
     private ImageButton pauseBtn;
     private ImageButton shufflePlayOffBtn;
     private ImageButton shufflePlayOnBtn;
+    private View loader;
+    private CoordinatorLayout mainContent;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +38,9 @@ public class DetailListFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        loader = view.findViewById(R.id.loader);
+
+        setLoading(true);
         followBtn = view.findViewById(R.id.follow_button);
         playBtn = view.findViewById(R.id.play);
         pauseBtn = view.findViewById(R.id.pause);
@@ -70,5 +76,15 @@ public class DetailListFragment extends Fragment {
         });
 
         // TODO: Render dữ liệu xài adapter ListTrackRecyclerAdapter nha Ja, let's goooo ~
+    }
+
+    private void setLoading(boolean b) {
+        if (b){
+            mainContent.setVisibility(View.GONE);
+            loader.setVisibility(View.VISIBLE);
+        } else{
+            mainContent.setVisibility(View.VISIBLE);
+            loader.setVisibility(View.GONE);
+        }
     }
 }
